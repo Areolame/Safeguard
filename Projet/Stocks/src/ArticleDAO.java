@@ -3,18 +3,19 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
- * Classe d'accès aux données contenues dans la table article
+ * Classe d'accï¿½s aux donnï¿½es contenues dans la table article
  * @version 1.1
  * */
 public class ArticleDAO {
 
 	/**
-	 * Paramètres de connexion à la base de données oracle
+	 * Paramï¿½tres de connexion ï¿½ la base de donnï¿½es oracle
 	 * URL, LOGIN et PASS sont des constantes
 	 */
-	final static String URL = "jdbc:oracle:thin:@localhost:1521:xe";
-	final static String LOGIN="bdd1";
-	final static String PASS="bdd1";
+	final static String URL = "jdbc:mysql://localhost:3306/stocks";
+	final static String LOGIN="root";
+	final static String PASS="admin";
+	private static int autoIncrement = 0;
 
 
 	/**
@@ -23,9 +24,10 @@ public class ArticleDAO {
 	 */
 	public ArticleDAO()
 	{
-		// chargement du pilote de bases de données
+		// chargement du pilote de bases de donnï¿½es
 		try {
 			Class.forName("oracle.jdbc.OracleDriver");
+			Class.forName("com.mysql.cj.jdbc.Driver");
 		} catch (ClassNotFoundException e2) {
 			System.err.println("Impossible de charger le pilote de BDD, ne pas oublier d'importer le fichier .jar dans le projet");
 		}
@@ -35,10 +37,10 @@ public class ArticleDAO {
 
 	/**
 	 * Permet d'ajouter un article dans la table article
-	 * la référence de l'article est produite automatiquement par la base de données en utilisant une séquence
-	 * Le mode est auto-commit par défaut : chaque insertion est validée
-	 * @param nouvArticle l'article à ajouter
-	 * @return le nombre de ligne ajoutées dans la table
+	 * la rï¿½fï¿½rence de l'article est produite automatiquement par la base de donnï¿½es en utilisant une sï¿½quence
+	 * Le mode est auto-commit par dï¿½faut : chaque insertion est validï¿½e
+	 * @param nouvArticle l'article ï¿½ ajouter
+	 * @return le nombre de ligne ajoutï¿½es dans la table
 	 */
 	public int ajouter(Article nouvArticle)
 	{
@@ -46,19 +48,20 @@ public class ArticleDAO {
 		PreparedStatement ps = null;
 		int retour=0;
 
-		//connexion à la base de données
+		//connexion ï¿½ la base de donnï¿½es
 		try {
 
 			//tentative de connexion
 			con = DriverManager.getConnection(URL, LOGIN, PASS);
-			//préparation de l'instruction SQL, chaque ? représente une valeur à communiquer dans l'insertion
-			//les getters permettent de récupérer les valeurs des attributs souhaités de nouvArticle
-			ps = con.prepareStatement("INSERT INTO article (art_reference, art_designation, art_pu_ht, art_qte_stock) VALUES (article_seq.NEXTVAL, ?, ?, ?)");
+			//prï¿½paration de l'instruction SQL, chaque ? reprï¿½sente une valeur ï¿½ communiquer dans l'insertion
+			//les getters permettent de rï¿½cupï¿½rer les valeurs des attributs souhaitï¿½s de nouvArticle
+			ps = con.prepareStatement("INSERT INTO article (reference, designation, pu_ht, qtestock) VALUES ("+autoIncrement+", ?, ?, ?)");
+			++autoIncrement;
 			ps.setString(1,nouvArticle.getDesignation());
 			ps.setDouble(2,nouvArticle.getPuHt());
 			ps.setInt(3,nouvArticle.getQteStock());
 
-			//Exécution de la requête
+			//Exï¿½cution de la requï¿½te
 			retour=ps.executeUpdate();
 
 
@@ -74,10 +77,10 @@ public class ArticleDAO {
 	}
 
 	/**
-	 * Permet de récupérer un article à partir de sa référence
-	 * @param reference la référence de l'article à récupérer
+	 * Permet de rï¿½cupï¿½rer un article ï¿½ partir de sa rï¿½fï¿½rence
+	 * @param reference la rï¿½fï¿½rence de l'article ï¿½ rï¿½cupï¿½rer
 	 * @return l'article
-	 * @return null si aucun article ne correspond à cette référence
+	 * @return null si aucun article ne correspond ï¿½ cette rï¿½fï¿½rence
 	 */
 	public Article getArticle(int reference)
 	{
@@ -87,17 +90,17 @@ public class ArticleDAO {
 		ResultSet rs=null;
 		Article retour=null;
 
-		//connexion à la base de données
+		//connexion ï¿½ la base de donnï¿½es
 		try {
 
 			con = DriverManager.getConnection(URL, LOGIN, PASS);
 			ps = con.prepareStatement("SELECT * FROM article WHERE art_reference = ?");
 			ps.setInt(1,reference);
 
-			//on exécute la requête
-			//rs contient un pointeur situé jusute avant la première ligne retournée
+			//on exï¿½cute la requï¿½te
+			//rs contient un pointeur situï¿½ jusute avant la premiï¿½re ligne retournï¿½e
 			rs=ps.executeQuery();
-			//passe à la première (et unique) ligne retournée 
+			//passe ï¿½ la premiï¿½re (et unique) ligne retournï¿½e 
 			if(rs.next())
 				retour=new Article(rs.getInt("art_reference"),rs.getString("art_designation"),rs.getDouble("art_pu_ht"),rs.getInt("art_qte_stock"));
 
@@ -115,7 +118,7 @@ public class ArticleDAO {
 	}
 
 	/**
-	 * Permet de récupérer tous les articles stockés dans la table article
+	 * Permet de rï¿½cupï¿½rer tous les articles stockï¿½s dans la table article
 	 * @return une ArrayList d'Articles
 	 */
 	public List<Article> getListeArticles()
@@ -126,15 +129,15 @@ public class ArticleDAO {
 		ResultSet rs=null;
 		List<Article> retour=new ArrayList<Article>();
 
-		//connexion à la base de données
+		//connexion ï¿½ la base de donnï¿½es
 		try {
 
 			con = DriverManager.getConnection(URL, LOGIN, PASS);
 			ps = con.prepareStatement("SELECT * FROM article");
 
-			//on exécute la requête
+			//on exï¿½cute la requï¿½te
 			rs=ps.executeQuery();
-			//on parcourt les lignes du résultat
+			//on parcourt les lignes du rï¿½sultat
 			while(rs.next())
 				retour.add(new Article(rs.getInt("art_reference"),rs.getString("art_designation"),rs.getDouble("art_pu_ht"),rs.getInt("art_qte_stock")));
 
@@ -155,19 +158,15 @@ public class ArticleDAO {
 	public static void main(String[] args)  throws SQLException {
 
 		 ArticleDAO articleDAO=new ArticleDAO();
-		//test de la méthode ajouter
 		Article a = new Article("Set de 2 raquettes de ping-pong",149.9,10);
 		int retour=articleDAO.ajouter(a);
 
-		System.out.println(retour+ " lignes ajoutées");
+		System.out.println(retour+ " lignes ajoutï¿½es");
 
-		//test de la méthode getArticle
 		Article a2 = articleDAO.getArticle(1);
 		System.out.println(a2);
 
-		 //test de la méthode getListeArticles
 		List<Article> liste=articleDAO.getListeArticles();
-		//System.out.println(liste);
 		for(Article art : liste)
 		{
 			System.out.println(art.toString());
