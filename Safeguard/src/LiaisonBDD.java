@@ -1,5 +1,7 @@
 import java.sql.*;
 import java.time.LocalDateTime;
+import java.util.ArrayList;
+import java.util.HashMap;
 
 import Stock.Stock;
 
@@ -21,7 +23,73 @@ public class LiaisonBDD {
 		}
 
 	}
-	
+
+	public HashMap<String, Integer> getStockGel()
+	{
+		HashMap<String, Integer> stocks = new HashMap<>();
+		Connection con = null;
+		PreparedStatement ps = null;
+		try
+		{
+			con = DriverManager.getConnection(URL, LOGIN, PASS);
+			ps = con.prepareStatement("Select (nom_gel, stock_gel) From Gel");
+			while(ps.getResultSet().next())
+			{
+				stocks.put(ps.getResultSet().getString("nom_gel"), ps.getResultSet().getInt("stock_gel"));
+			}
+		}
+		catch (Exception ee) {
+			ee.printStackTrace();
+		}
+		try {if (ps != null)ps.close();} catch (Exception t) {}
+		try {if (con != null)con.close();} catch (Exception t) {}
+		return stocks;
+	}
+
+	public HashMap<String, Integer> getStockMasque()
+	{
+		HashMap<String, Integer> stocks = new HashMap<>();
+		Connection con = null;
+		PreparedStatement ps = null;
+		try
+		{
+			con = DriverManager.getConnection(URL, LOGIN, PASS);
+			ps = con.prepareStatement("Select (nom_masque, stock_masque) From Masque");
+			while(ps.getResultSet().next())
+			{
+				stocks.put(ps.getResultSet().getString("nom_masque"), ps.getResultSet().getInt("stock_masque"));
+			}
+		}
+		catch (Exception ee) {
+			ee.printStackTrace();
+		}
+		try {if (ps != null)ps.close();} catch (Exception t) {}
+		try {if (con != null)con.close();} catch (Exception t) {}
+		return stocks;
+	}
+
+	public HashMap<String, Integer> getStockVaccin()
+	{
+		HashMap<String, Integer> stocks = new HashMap<>();
+		Connection con = null;
+		PreparedStatement ps = null;
+		try
+		{
+			con = DriverManager.getConnection(URL, LOGIN, PASS);
+			ps = con.prepareStatement("Select (nom_vaccin, stock_vaccin) From Vaccin");
+			while(ps.getResultSet().next())
+			{
+				stocks.put(ps.getResultSet().getString("nom_vaccin"), ps.getResultSet().getInt("stock_vaccin"));
+			}
+		}
+		catch (Exception ee) {
+			ee.printStackTrace();
+		}
+		try {if (ps != null)ps.close();} catch (Exception t) {}
+		try {if (con != null)con.close();} catch (Exception t) {}
+		return stocks;
+	}
+
 	public int ajouterStock(Stock stock) 
 	{
 		if(stock.isGel())
@@ -125,6 +193,8 @@ public class LiaisonBDD {
 
 		return retour;
 	}
+
+
 
 	public int ajouterMasque(Stock stock)
 	{
