@@ -28,4 +28,5 @@ public class StockGel extends Stock {
     public int getID() {
         return TypeStock.Gel.getID();
     }
+
 }
