@@ -69,7 +69,7 @@ CREATE TABLE IF NOT EXISTS LaisonTestPersonne (
 	date_test date NOT NULL,
 	resultat boolean NOT NULL,
 	FOREIGN KEY (id_personne) REFERENCES Personne(id) ON DELETE CASCADE,
-    FOREIGN KEY (nom_test) REFERENCES Tel(nom_test) ON DELETE CASCADE
+    FOREIGN KEY (nom_test) REFERENCES Test(nom_test) ON DELETE CASCADE
 );
 
 --INSERT INTO test VALUES ('PCR',20,2022-01-21);
