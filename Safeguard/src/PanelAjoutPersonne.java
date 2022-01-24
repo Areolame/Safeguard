@@ -3,12 +3,7 @@ import java.awt.event.ActionEvent;
 import java.text.SimpleDateFormat;
 import java.time.LocalDateTime;
 
-import javax.swing.BorderFactory;
-import javax.swing.JButton;
-import javax.swing.JFormattedTextField;
-import javax.swing.JLabel;
-import javax.swing.JPanel;
-import javax.swing.JTextField;
+import javax.swing.*;
 
 public class PanelAjoutPersonne extends JPanel {
 	
@@ -40,14 +35,14 @@ public class PanelAjoutPersonne extends JPanel {
         GridLayout layoutPanel1 = new GridLayout(0,2);
         panel1.setLayout(layoutPanel1);
 		//instantiation des  composants graphiques
-        labelPrenom=new JLabel("First Name");
+        labelPrenom=new JLabel("First Name", SwingConstants.CENTER);
     	textFieldPrenom=new JTextField();
-    	labelNom=new JLabel("Last Name");
+    	labelNom=new JLabel("Last Name", SwingConstants.CENTER);
     	textFieldNom=new JTextField();
-    	labelDateNaissance=new JLabel("Date of birth");
-    	labelDateJour=new JLabel("Jour");
-    	labelDateMois=new JLabel("Mois");
-    	labelDateAnnee=new JLabel("Annee");
+    	labelDateNaissance=new JLabel("Date of birth", SwingConstants.CENTER);
+    	labelDateJour=new JLabel("Day", SwingConstants.CENTER);
+    	labelDateMois=new JLabel("Year", SwingConstants.CENTER);
+    	labelDateAnnee=new JLabel("Annee", SwingConstants.CENTER);
     	textFieldDateJour = new JFormattedTextField(new SimpleDateFormat("dd"));
     	textFieldDateMois = new JFormattedTextField(new SimpleDateFormat("MM"));
     	textFieldDateAnnee = new JFormattedTextField(new SimpleDateFormat("yyyy"));

@@ -8,3 +8,5 @@ Safeguard/bin/Personne.class
 .idea/vcs.xml
 Safeguard/.idea/modules.xml
 *.class
+*.class
+Safeguard/.classpath

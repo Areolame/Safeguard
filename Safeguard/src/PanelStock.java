@@ -9,6 +9,7 @@ import javax.swing.JFormattedTextField;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
+import javax.swing.*;
 
 public class PanelStock extends JPanel {
 	
@@ -25,11 +26,12 @@ public class PanelStock extends JPanel {
         GridLayout layoutPanel1 = new GridLayout(0,2);
         panel1.setLayout(layoutPanel1);
 		//instantiation des  composants graphiques
-
-		boutonAdd = new JButton("add");
+        JLabel nomPage = new JLabel("Stock", SwingConstants.CENTER);
+		boutonAdd = new JButton("Add");
 		
 		//ajout des composants sur le container
-    	this.add(panel1);
+    	this.add(nomPage);
+		this.add(panel1);
 		this.add(boutonAdd);
 
 		
