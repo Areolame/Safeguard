@@ -26,6 +26,7 @@ public class PanelStock extends JPanel {
         panel1.setLayout(layoutPanel1);
 		//instantiation des  composants graphiques
 
+		boutonAdd = new JButton("add");
 		
 		//ajout des composants sur le container
     	this.add(panel1);
