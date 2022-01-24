@@ -45,7 +45,7 @@ public class Personne {
         this.nom = nom;
         this.prenom = prenom;
         this.dateDeNaissance = dateDeNaissance;
-        LiaisonBDD.liaison.ajouterPersonne(this);
+        Fenetre.liaison.ajouterPersonne(this);
     }
 
     public void addStock(Stock stock)

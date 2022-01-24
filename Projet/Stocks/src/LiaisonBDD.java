@@ -10,7 +10,6 @@ public class LiaisonBDD {
     final static String URL = "jdbc:mysql://" + serverName + "/" + mydatabase; 
     final static String LOGIN="root";
     final static String PASS="admin";
-	public static LiaisonBDD liaison;
 
 	public LiaisonBDD()
 	{
@@ -20,7 +19,6 @@ public class LiaisonBDD {
 		} catch (ClassNotFoundException e2) {
 			System.err.println("Impossible de charger le pilote de BDD, ne pas oublier d'importer le fichier .jar dans le projet");
 		}
-		liaison = this;
 
 	}
 	
