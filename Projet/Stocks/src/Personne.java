@@ -31,6 +31,7 @@ public class Personne {
         this.nom = nom;
         this.prenom = prenom;
         this.dateDeNaissance = dateDeNaissance;
+        PersonneManager.personnes.add(this);
     }
     
     public Personne(String nom, String prenom, LocalDateTime dateDeNaissance)
@@ -46,6 +47,7 @@ public class Personne {
         this.prenom = prenom;
         this.dateDeNaissance = dateDeNaissance;
         Fenetre.liaison.ajouterPersonne(this);
+        PersonneManager.personnes.add(this);
     }
 
     public void addStock(Stock stock)

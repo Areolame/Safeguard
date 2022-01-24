@@ -26,11 +26,17 @@ public class LiaisonBDD {
 	{
 		if(stock.isGel())
 		{
+			return ajouterGel(stock);
 		}
 		else if(stock.isMasque())
 		{
+			return ajouterMasque(stock);
 		}
-		return 0;
+		else if(stock.isVaccin())
+		{
+			return ajouterVaccin(stock);
+		}
+		return -1;
 	}
 
 	public int getGel(Stock stock) 

@@ -96,9 +96,8 @@ public class PanelAjoutPersonne extends JPanel {
 			Fenetre.erreurBox.setVisible(true); 
 		}
 		else {
-			LocalDateTime dateNaiss = LocalDateTime.of(Integer.valueOf(annee),Integer.valueOf(mois),Integer.valueOf(jour), 0, 0);
-			Personne p = new Personne(this.textFieldPrenom.getText(), this.textFieldNom.getText(), dateNaiss);
-			Fenetre.liaison.ajouterPersonne(p);
+			LocalDateTime dateNaiss = LocalDateTime.of(Integer.parseInt(annee),Integer.parseInt(mois),Integer.parseInt(jour), 0, 0);
+			new Personne(this.textFieldPrenom.getText(), this.textFieldNom.getText(), dateNaiss);
 		}
 	}
 	

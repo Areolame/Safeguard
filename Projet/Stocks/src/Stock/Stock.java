@@ -46,4 +46,5 @@ public abstract class Stock {
 	{
 		return null;
 	}
+
 }

@@ -2,7 +2,7 @@ import java.util.ArrayList;
 
 public class PersonneManager {
 
-    private static ArrayList<Personne> personnes = new ArrayList<>();
+    public static ArrayList<Personne> personnes = new ArrayList<>();
 
     public static void initPersonnes()
     {
