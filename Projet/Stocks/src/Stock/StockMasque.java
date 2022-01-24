@@ -8,7 +8,7 @@ public class StockMasque extends Stock {
 
     public StockMasque(EnumMasque masque, int nbStock)
     {
-        super(nbStock);
+        super(masque.getName(), nbStock);
         enumMasque = masque;
     }
 

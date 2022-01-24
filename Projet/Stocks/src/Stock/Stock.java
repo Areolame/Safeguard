@@ -3,13 +3,16 @@ package Stock;
 public abstract class Stock {
 
     protected int nombreDeStock;
+    protected String nom;
 
-    public Stock(int nombreDeStock)
+    public Stock(String nom, int nombreDeStock)
     {
+    	this.nom = nom;
         this.nombreDeStock = nombreDeStock;
     }
 
-    public int getNombreDeStock()
+
+	public int getNombreDeStock()
     {
         return nombreDeStock;
     }
@@ -38,4 +41,9 @@ public abstract class Stock {
     {
         return false;
     }
+
+	public String getName() 
+	{
+		return null;
+	}
 }

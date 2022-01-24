@@ -1,17 +1,15 @@
-package Personne;
+import java.time.LocalDateTime;
+import java.util.ArrayList;
 
 import Stock.Stock;
 import Stock.StockGel;
 import Stock.StockMasque;
 import Stock.StockVaccin;
 
-import java.time.LocalDateTime;
-import java.util.ArrayList;
-
 public class Personne {
 
     private String nom, prenom;
-    private boolean testPositif;
+    private boolean testPositif = false;
     private LocalDateTime dateDeNaissance;
     private ArrayList<StockMasque> stockMasques;
     private ArrayList<StockVaccin> stockVaccin;
@@ -33,6 +31,21 @@ public class Personne {
         this.nom = nom;
         this.prenom = prenom;
         this.dateDeNaissance = dateDeNaissance;
+    }
+    
+    public Personne(String nom, String prenom, LocalDateTime dateDeNaissance)
+    {
+        id = idGlobal;
+        ++idGlobal;
+
+        this.stockMasques = new ArrayList<>();
+        this.stockGels = new ArrayList<>();
+        this.stockVaccin = new ArrayList<>();
+
+        this.nom = nom;
+        this.prenom = prenom;
+        this.dateDeNaissance = dateDeNaissance;
+        LiaisonBDD.liaison.ajouterPersonne(this);
     }
 
     public void addStock(Stock stock)
@@ -94,6 +107,19 @@ public class Personne {
         return dateDeNaissance.getDayOfMonth();
     }
 
+    public ArrayList<StockMasque> getStockMasques() {
+        return stockMasques;
+    }
+
+    public String getDate()
+    {
+        return getBirthdayDay() + "/" + getBirthdayMonth() + "/" + getBirthdayYear();
+    }
+
+    public boolean getTest()
+    {
+        return testPositif;
+    }
     public void setTestPositif(boolean testPositif) {
         this.testPositif = testPositif;
     }

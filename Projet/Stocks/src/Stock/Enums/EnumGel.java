@@ -3,7 +3,7 @@ package Stock.Enums;
 public enum EnumGel {
     Hydroalcoolique;
 
-    private String getName()
+    public String getName()
     {
         switch (this)
         {

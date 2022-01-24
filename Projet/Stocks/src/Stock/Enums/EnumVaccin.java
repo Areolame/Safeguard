@@ -7,7 +7,7 @@ public enum EnumVaccin {
     Moderna,
     AstraZeneca;
 
-    private String getName()
+    public String getName()
     {
         switch (this)
         {
@@ -21,7 +21,7 @@ public enum EnumVaccin {
         return "Error";
     }
 
-    private int getID()
+    public int getID()
     {
         switch (this)
         {

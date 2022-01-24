@@ -8,7 +8,7 @@ public enum EnumMasque {
     FFP3,
     Tissu;
 
-    private String getName()
+    public String getName()
     {
         switch (this)
         {

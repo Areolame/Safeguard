@@ -1,5 +1,3 @@
-import Personne.Personne;
-
 import java.util.ArrayList;
 
 public class PersonneManager {

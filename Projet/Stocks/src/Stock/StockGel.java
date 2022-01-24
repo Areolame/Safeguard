@@ -8,7 +8,7 @@ public class StockGel extends Stock {
 
     public StockGel(EnumGel gel, int nbStock)
     {
-        super(nbStock);
+        super(gel.getName(), nbStock);
         enumGel = gel;
     }
 
