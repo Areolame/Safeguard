@@ -55,10 +55,11 @@ public class LiaisonBDD {
 		try
 		{
 			con = DriverManager.getConnection(URL, LOGIN, PASS);
-			ps = con.prepareStatement("Select (nom_masque, stock_masque) From Masque");
-			while(ps.getResultSet().next())
+			ps = con.prepareStatement("Select nom_masque, stock_masque From Masque");
+			ResultSet rs=ps.executeQuery();
+			while(rs.next())
 			{
-				stocks.put(ps.getResultSet().getString("nom_masque"), ps.getResultSet().getInt("stock_masque"));
+				stocks.put(rs.getString("nom_masque"), rs.getInt("stock_masque"));
 			}
 		}
 		catch (Exception ee) {
@@ -77,10 +78,11 @@ public class LiaisonBDD {
 		try
 		{
 			con = DriverManager.getConnection(URL, LOGIN, PASS);
-			ps = con.prepareStatement("Select (nom_vaccin, stock_vaccin) From Vaccin");
-			while(ps.getResultSet().next())
+			ps = con.prepareStatement("Select nom_test, stock_test From Test");
+			ResultSet rs=ps.executeQuery();
+			while(rs.next())
 			{
-				stocks.put(ps.getResultSet().getString("nom_vaccin"), ps.getResultSet().getInt("stock_vaccin"));
+				stocks.put(rs.getString("nom_test"), rs.getInt("stock_test"));
 			}
 		}
 		catch (Exception ee) {
