@@ -1,6 +1,7 @@
 import java.sql.*;
-import java.util.ArrayList;
-import java.util.List;
+import java.time.LocalDateTime;
+
+import Stock.Stock;
 
 public class LiaisonBDD {
 
@@ -12,7 +13,7 @@ public class LiaisonBDD {
 
 	public LiaisonBDD()
 	{
-		// chargement du pilote de bases de données
+		// chargement du pilote de bases de donnï¿½es
 		try {
 			Class.forName("com.mysql.cj.jdbc.Driver");
 		} catch (ClassNotFoundException e2) {
@@ -21,24 +22,183 @@ public class LiaisonBDD {
 
 	}
 	
-	public int ajouterPersonne(Personne p) {
+	public int ajouterStock(Stock stock) 
+	{
+		if(stock.isGel())
+		{
+			return ajouterGel(stock);
+		}
+		else if(stock.isMasque())
+		{
+			return ajouterMasque(stock);
+		}
+		else if(stock.isVaccin())
+		{
+			return ajouterVaccin(stock);
+		}
+		return -1;
+	}
+
+	public int getGel(Stock stock) 
+	{
+		Connection con = null;
+		PreparedStatement ps = null;
+		try
+		{
+			con = DriverManager.getConnection(URL, LOGIN, PASS);
+			ps = con.prepareStatement("Select stock_gel From Gel where='" + stock.getName() + "'");
+			return ps.getResultSet().findColumn("Stock_gel");
+		} 
+		catch (Exception ee) {
+			ee.printStackTrace();
+		}
+		try {if (ps != null)ps.close();} catch (Exception t) {}
+		try {if (con != null)con.close();} catch (Exception t) {}
+
+		return 0;
+	}
+
+	public int getVaccin(Stock stock)
+	{
+		Connection con = null;
+		PreparedStatement ps = null;
+		try
+		{
+			con = DriverManager.getConnection(URL, LOGIN, PASS);
+			ps = con.prepareStatement("Select stock_vaccin From Vaccin where='" + stock.getName() + "'");
+			return ps.getResultSet().findColumn("stock_vaccin");
+		}
+		catch (Exception ee) {
+			ee.printStackTrace();
+		}
+		try {if (ps != null)ps.close();} catch (Exception t) {}
+		try {if (con != null)con.close();} catch (Exception t) {}
+
+		return 0;
+	}
+
+	public int getMasque(Stock stock)
+	{
+		Connection con = null;
+		PreparedStatement ps = null;
+		try
+		{
+			con = DriverManager.getConnection(URL, LOGIN, PASS);
+			ps = con.prepareStatement("Select stock_masque From Masque where='" + stock.getName() + "'");
+			return ps.getResultSet().findColumn("stock_masque");
+		}
+		catch (Exception ee) {
+			ee.printStackTrace();
+		}
+		try {if (ps != null)ps.close();} catch (Exception t) {}
+		try {if (con != null)con.close();} catch (Exception t) {}
+
+		return 0;
+	}
+
+	public int ajouterGel(Stock stock)
+	{
 		Connection con = null;
 		PreparedStatement ps = null;
 		int retour=0;
-		//connexion à la base de données
+		//connexion ï¿½ la base de donnï¿½es
 		try {
 			//tentative de connexion
 			con = DriverManager.getConnection(URL, LOGIN, PASS);
-			//préparation de l'instruction SQL, chaque ? représente une valeur à communiquer dans l'insertion
-			//les getters permettent de récupérer les valeurs des attributs souhaités de nouvArticle
-			ps = con.prepareStatement("INSERT INTO Personne (id, nom, prenom, naissance, positif) VALUES (?, ?, ?, ?, ?)");
-			ps.setInt(1,p.getId());
-			ps.setString(2,p.getNom());
-			ps.setString(3,p.getPrenom());
-			ps.setDate(4,p.getDate());
-			ps.setBoolean(5,p.getTestPositif());
+			//prï¿½paration de l'instruction SQL, chaque ? reprï¿½sente une valeur ï¿½ communiquer dans l'insertion
+			//les getters permettent de rï¿½cupï¿½rer les valeurs des attributs souhaitï¿½s de nouvArticle
+			ps = con.prepareStatement("INSERT INTO Gel (nom_gel, stock_gel, date_reception) VALUES (?, ?, ?)");
+			ps.setString(1, stock.getName());
+			ps.setInt(2, getGel(stock) + stock.getNombreDeStock());
+			ps.setString(3, dateToString());
 
-			//Exécution de la requête
+			//Exï¿½cution de la requï¿½te
+			retour=ps.executeUpdate();
+
+
+		}
+		catch (Exception ee) {
+			ee.printStackTrace();
+		}
+		try {if (ps != null)ps.close();} catch (Exception t) {}
+		try {if (con != null)con.close();} catch (Exception t) {}
+
+		return retour;
+	}
+
+	public int ajouterMasque(Stock stock)
+	{
+		Connection con = null;
+		PreparedStatement ps = null;
+		int retour=0;
+		//connexion ï¿½ la base de donnï¿½es
+		try {
+			//tentative de connexion
+			con = DriverManager.getConnection(URL, LOGIN, PASS);
+			ps = con.prepareStatement("INSERT INTO Masque (nom_masque, stock_masque, date_reception) VALUES (?, ?, ?)");
+			ps.setString(1, stock.getName());
+			ps.setInt(2, getMasque(stock) + stock.getNombreDeStock());
+			ps.setString(3, dateToString());
+
+			//Exï¿½cution de la requï¿½te
+			retour=ps.executeUpdate();
+
+
+		}
+		catch (Exception ee) {
+			ee.printStackTrace();
+		}
+		try {if (ps != null)ps.close();} catch (Exception t) {}
+		try {if (con != null)con.close();} catch (Exception t) {}
+
+		return retour;
+	}
+
+	public int ajouterVaccin(Stock stock)
+	{
+		Connection con = null;
+		PreparedStatement ps = null;
+		int retour=0;
+		//connexion ï¿½ la base de donnï¿½es
+		try {
+			//tentative de connexion
+			con = DriverManager.getConnection(URL, LOGIN, PASS);
+			ps = con.prepareStatement("INSERT INTO Vaccin (nom_vaccin, stock_vaccin, date_expiration) VALUES (?, ?, ?)");
+			ps.setString(1, stock.getName());
+			ps.setInt(2, getVaccin(stock) + stock.getNombreDeStock());
+			ps.setString(3, dateToString());
+
+			//Exï¿½cution de la requï¿½te
+			retour=ps.executeUpdate();
+
+
+		}
+		catch (Exception ee) {
+			ee.printStackTrace();
+		}
+		try {if (ps != null)ps.close();} catch (Exception t) {}
+		try {if (con != null)con.close();} catch (Exception t) {}
+
+		return retour;
+	}
+
+	public int ajouterPersonne(Personne p)
+	{
+		Connection con = null;
+		PreparedStatement ps = null;
+		int retour=0;
+		//connexion ï¿½ la base de donnï¿½es
+		try {
+			//tentative de connexion
+			con = DriverManager.getConnection(URL, LOGIN, PASS);
+			ps = con.prepareStatement("INSERT INTO Personne (id, nom, prenom, naissance, positif) VALUES (?, ?, ?, ?, ?)");
+			ps.setInt(1, p.getId());
+			ps.setString(2, p.getNom());
+			ps.setString(3, p.getPrenom());
+			ps.setString(4, p.getDate());
+			ps.setBoolean(5, p.getTest());
+
+			//Exï¿½cution de la requï¿½te
 			retour=ps.executeUpdate();
 
 
@@ -51,4 +211,14 @@ public class LiaisonBDD {
 
 		return retour;
 	}
+	
+	
+	
+	private static String dateToString()
+	{
+		LocalDateTime now = LocalDateTime.now();
+		
+		return now.getDayOfMonth() + "/" + now.getMonthValue() + "/" + now.getYear();
+	}
+	
 }
