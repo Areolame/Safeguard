@@ -1,0 +1,91 @@
+import java.awt.Color;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import java.awt.Dimension;
+import java.awt.GridLayout;
+
+import javax.swing.BorderFactory;
+import javax.swing.JButton;
+import javax.swing.JDialog;
+import javax.swing.JFrame;
+import javax.swing.JLabel;
+import javax.swing.JScrollPane;
+import javax.swing.JTextArea;
+import javax.swing.JTextField;
+import javax.swing.JPanel;
+import javax.swing.BoxLayout;
+import javax.swing.Box;
+import javax.swing.JFormattedTextField;
+import java.sql.Date;
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
+import java.util.Calendar;
+import java.util.List;
+
+public class Fenetre extends JFrame implements ActionListener {
+
+	private static final long serialVersionUID = 1L; 
+	
+	// Instance de la classe liaison
+	public static LiaisonBDD liaison;
+
+	// Boite d'erreur
+	public static JDialog erreurBox;
+	public static JLabel messageErreur;
+	
+	// Différents panel
+	private PanelAjoutPersonne panelAjoutPersonne;
+	
+	public Fenetre() {
+		// on instancie les différentes classes
+		liaison = new LiaisonBDD();
+		erreurBox = new JDialog(this,"Erreur");
+		messageErreur = new JLabel("");
+		erreurBox.add(messageErreur);
+		erreurBox.setSize(250, 100);
+		
+		// Panel Personne
+		this.panelAjoutPersonne = new PanelAjoutPersonne();
+		this.panelAjoutPersonne.boutonAddPersonne.addActionListener(this);
+		this.panelAjoutPersonne.boutonCancelPersonne.addActionListener(this);
+		
+		
+		//on fixe le titre de la fenêtre
+		this.setTitle("Covid-Statistics");
+		//initialisation de la taille de la fenêtre
+		this.setSize(400,350);
+		
+		//permet de quitter l'application si on ferme la fenêtre
+		this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		
+		this.setContentPane(panelAjoutPersonne);
+
+		//affichage de la fenêtre
+		this.setVisible(true);
+	}
+	
+	// Callback des différents boutons des panels
+	public void actionPerformed(ActionEvent ae) {
+		int retour; // code de retour si besoin
+		try {
+			if(ae.getSource()==this.panelAjoutPersonne.boutonAddPersonne) {
+				this.panelAjoutPersonne.ajouterPersonne();
+			}
+			else if(ae.getSource()==this.panelAjoutPersonne.boutonCancelPersonne) {
+				this.panelAjoutPersonne.cancel();
+			}
+		}
+		catch (Exception e) {
+			System.err.println("Veuillez contrôler vos saisies");
+		}
+		
+	}
+
+	
+	public static void main(String[] args) {
+		new Fenetre();
+    }
+
+}
