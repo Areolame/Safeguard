@@ -2,6 +2,7 @@ import java.awt.GridLayout;
 import java.awt.event.ActionEvent;
 import java.text.SimpleDateFormat;
 import java.time.LocalDateTime;
+import java.util.HashMap;
 
 import javax.swing.BorderFactory;
 import javax.swing.JButton;
@@ -28,6 +29,10 @@ public class PanelStock extends JPanel {
 		//instantiation des  composants graphiques
         JLabel nomPage = new JLabel("Stock", SwingConstants.CENTER);
 		boutonAdd = new JButton("Add");
+		
+		// Récupération de l'inventaire dans la BDD
+		HashMap<String, Integer> map = Fenetre.liaison.getStockGel();
+		System.out.println(map);
 		
 		//ajout des composants sur le container
     	this.add(nomPage);

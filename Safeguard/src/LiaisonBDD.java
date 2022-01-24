@@ -32,10 +32,11 @@ public class LiaisonBDD {
 		try
 		{
 			con = DriverManager.getConnection(URL, LOGIN, PASS);
-			ps = con.prepareStatement("Select (nom_gel, stock_gel) From Gel");
-			while(ps.getResultSet().next())
+			ps = con.prepareStatement("Select nom_gel, stock_gel From Gel");
+			ResultSet rs=ps.executeQuery();
+			while(rs.next())
 			{
-				stocks.put(ps.getResultSet().getString("nom_gel"), ps.getResultSet().getInt("stock_gel"));
+				stocks.put(rs.getString("nom_gel"), rs.getInt("stock_gel"));
 			}
 		}
 		catch (Exception ee) {

@@ -79,7 +79,7 @@ public class Fenetre extends JFrame implements ActionListener {
 	
 	// Callback des différents boutons des panels
 	public void actionPerformed(ActionEvent ae) {
-		int retour; // code de retour si besoin
+		//int retour; // code de retour si besoin
 		try {
 			if(ae.getSource()==this.panelAjoutPersonne.boutonAddPersonne) {
 				this.panelAjoutPersonne.ajouterPersonne();
