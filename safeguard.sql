@@ -1,9 +1,6 @@
---CREATE DATABASE  IF NOT EXISTS gestionhopital;
 CREATE SCHEMA IF NOT EXISTS gestionhopital;
 USE gestionhopital;
 
--- A MODIFIER
--- CREER DES TABLES DE LIAISON
 CREATE TABLE IF NOT EXISTS Stock (
   id INT PRIMARY KEY AUTO_INCREMENT NOT NULL,
   nombre_masque INT NOT NULL,
@@ -44,7 +41,7 @@ CREATE TABLE IF NOT EXISTS Personne (
 	positif boolean NOT NULL
 );
 
-CREATE TABLE IF NOT EXISTS LaisonMasquePersonne (
+CREATE TABLE IF NOT EXISTS LiaisonMasquePersonne (
 	id INT PRIMARY KEY AUTO_INCREMENT NOT NULL,
 	id_personne INT NOT NULL,
 	nom_masque varchar(100) NOT NULL,
@@ -53,7 +50,7 @@ CREATE TABLE IF NOT EXISTS LaisonMasquePersonne (
     FOREIGN KEY (nom_masque) REFERENCES Masque(nom_masque) ON DELETE CASCADE
 );
 
-CREATE TABLE IF NOT EXISTS LaisonGelPersonne (
+CREATE TABLE IF NOT EXISTS LiaisonGelPersonne (
 	id INT PRIMARY KEY AUTO_INCREMENT NOT NULL,
 	id_personne INT NOT NULL,
 	nom_gel varchar(100) NOT NULL,
@@ -62,7 +59,7 @@ CREATE TABLE IF NOT EXISTS LaisonGelPersonne (
     FOREIGN KEY (nom_gel) REFERENCES Gel(nom_gel) ON DELETE CASCADE
 );
 
-CREATE TABLE IF NOT EXISTS LaisonTestPersonne (
+CREATE TABLE IF NOT EXISTS LiaisonTestPersonne (
 	id INT PRIMARY KEY AUTO_INCREMENT NOT NULL,
 	id_personne INT NOT NULL,
 	nom_test varchar(100) NOT NULL,
@@ -72,4 +69,6 @@ CREATE TABLE IF NOT EXISTS LaisonTestPersonne (
     FOREIGN KEY (nom_test) REFERENCES Test(nom_test) ON DELETE CASCADE
 );
 
---INSERT INTO test VALUES ('PCR',20,2022-01-21);
+INSERT INTO Gel VALUES ('Gel hydroalcoolique',10,CURDATE());
+INSERT INTO Masque VALUES ('Masque FFP2',23,CURDATE());
+INSERT INTO Test VALUES ('Vaccin Pfizer',32,CURDATE());
