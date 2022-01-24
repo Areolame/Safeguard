@@ -58,7 +58,7 @@ public class Fenetre extends JFrame implements ActionListener {
 		//on fixe le titre de la fenêtre
 		this.setTitle("Covid-Statistics");
 		//initialisation de la taille de la fenêtre
-		//this.setSize(400,350);
+		this.setSize(400,700);
 		
 		//permet de quitter l'application si on ferme la fenêtre
 		this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
