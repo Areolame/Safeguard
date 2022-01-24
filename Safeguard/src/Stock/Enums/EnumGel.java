@@ -1,7 +1,7 @@
 package Stock.Enums;
 
 public enum EnumGel {
-    Hydroalcoolique;
+	Hydroalcoolique;
 
     public String getName()
     {
@@ -11,5 +11,14 @@ public enum EnumGel {
                 return "Hydroalcoolique";
         }
         return "Error";
+    }
+    
+    public static EnumGel from(String name)
+    {
+        if(name.toLowerCase().contains("hydroalcoolique"))
+        {
+            return EnumGel.Hydroalcoolique;
+        }
+        return null;
     }
 }

@@ -23,6 +23,27 @@ public enum EnumMasque {
         }
         return "Error";
     }
+    
+    public static EnumMasque from(String name)
+    {
+        if(name.toLowerCase().contains("ffp1"))
+        {
+            return EnumMasque.FFP1;
+        }
+        else if(name.toLowerCase().contains("ffp2"))
+        {
+            return EnumMasque.FFP1;
+        }
+        else if(name.toLowerCase().contains("ffp3"))
+        {
+            return EnumMasque.FFP1;
+        }
+        else if(name.toLowerCase().contains("tissu"))
+        {
+            return EnumMasque.FFP1;
+        }
+        return null;
+    }
 
 
 }

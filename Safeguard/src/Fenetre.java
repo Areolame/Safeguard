@@ -38,6 +38,7 @@ public class Fenetre extends JFrame implements ActionListener {
 	// Différents panel
 	private PanelAjoutPersonne panelAjoutPersonne;
 	private PanelStock panelStock;
+	private PanelModifStock panelModifStock;
 	
 	public Fenetre() {
 		// on instancie les différentes classes
@@ -55,21 +56,29 @@ public class Fenetre extends JFrame implements ActionListener {
 		this.panelStock = new PanelStock();
 		this.panelStock.boutonAdd.addActionListener(this);
 		
+		this.panelModifStock = new PanelModifStock();
+		this.panelModifStock.boutonAdd.addActionListener(this);
+		this.panelModifStock.boutonCancel.addActionListener(this);
+		
 		//on fixe le titre de la fenêtre
 		this.setTitle("Covid-Statistics");
+		int sizeX = 400;
+		int sizeY = 350;
+		int nbPanel = 3;
 		//initialisation de la taille de la fenêtre
-		this.setSize(800,350);
+		this.setSize(sizeX*nbPanel,sizeY);
 		
 		//permet de quitter l'application si on ferme la fenêtre
 		this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		
 		JPanel panelPrincipal = new JPanel();
-		GridLayout layoutPrincipal = new GridLayout(0,2);
+		GridLayout layoutPrincipal = new GridLayout(0,nbPanel);
 		panelPrincipal.setLayout(layoutPrincipal);
 		
 		// Ajout des panels dans le panel principal
 		panelPrincipal.add(this.panelAjoutPersonne);
 		panelPrincipal.add(this.panelStock);
+		panelPrincipal.add(this.panelModifStock);
 		
 		this.setContentPane(panelPrincipal);
 
@@ -90,9 +99,15 @@ public class Fenetre extends JFrame implements ActionListener {
 			else if (ae.getSource()==this.panelStock.boutonAdd) {
 				this.panelStock.add();
 			}
+			else if (ae.getSource()==this.panelModifStock.boutonAdd) {
+				this.panelModifStock.add();
+			}
+			else if (ae.getSource()==this.panelModifStock.boutonCancel) {
+				this.panelModifStock.cancel();
+			}
 		}
 		catch (Exception e) {
-			System.err.println("Veuillez contrôler vos saisies");
+			System.out.println(e);
 		}
 		
 	}

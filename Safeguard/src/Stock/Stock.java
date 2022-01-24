@@ -44,7 +44,7 @@ public abstract class Stock {
 
 	public String getName() 
 	{
-		return null;
+		return nom;
 	}
 
 }

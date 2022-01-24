@@ -49,11 +49,12 @@ public class PanelStock extends JPanel {
 		//ajout des composants sur le container
     	this.add(nomPage);
 		this.add(panel1);
-		this.add(boutonAdd);
-
-		
-		//ajouter une bordure vide de taille constante autour de l'ensemble des composants
+		JPanel panel2 = new JPanel();
+		panel2.add(boutonAdd);
+		panel2.setBorder(BorderFactory.createEmptyBorder(40,10,10,10));
+		this.add(panel2);
 		this.setBorder(BorderFactory.createEmptyBorder(10,10,10,10));
+
 		
 	}
 	

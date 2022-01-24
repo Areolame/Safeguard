@@ -32,4 +32,21 @@ public enum EnumVaccin {
         }
         return -1;
     }
+    
+    public static EnumVaccin from(String name)
+    {
+        if(name.toLowerCase().contains("astrazeneca"))
+        {
+            return EnumVaccin.AstraZeneca;
+        }
+        else if(name.toLowerCase().contains("pfizer"))
+        {
+            return EnumVaccin.Pfizer;
+        }
+        else if(name.toLowerCase().contains("moderna"))
+        {
+            return EnumVaccin.Moderna;
+        }
+        return null;
+    }
 }

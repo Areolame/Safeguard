@@ -117,8 +117,15 @@ public class LiaisonBDD {
 		try
 		{
 			con = DriverManager.getConnection(URL, LOGIN, PASS);
-			ps = con.prepareStatement("Select stock_gel From Gel where='" + stock.getName() + "'");
-			return ps.getResultSet().findColumn("Stock_gel");
+			ps = con.prepareStatement("Select stock_gel, nom_gel From Gel");
+			ResultSet rs=ps.executeQuery();
+			rs.next();
+			String tmp = rs.getString("nom_gel");
+			while(!tmp.equalsIgnoreCase(stock.getName())) {
+				rs.next();
+				tmp = rs.getString("nom_gel");
+			}
+			return rs.getInt("stock_gel");
 		} 
 		catch (Exception ee) {
 			ee.printStackTrace();
@@ -136,8 +143,15 @@ public class LiaisonBDD {
 		try
 		{
 			con = DriverManager.getConnection(URL, LOGIN, PASS);
-			ps = con.prepareStatement("Select stock_vaccin From Vaccin where='" + stock.getName() + "'");
-			return ps.getResultSet().findColumn("stock_vaccin");
+			ps = con.prepareStatement("Select stock_test, nom_test From Test");
+			ResultSet rs=ps.executeQuery();
+			rs.next();
+			String tmp = rs.getString("nom_test");
+			while(!tmp.equalsIgnoreCase(stock.getName())) {
+				rs.next();
+				tmp = rs.getString("nom_test");
+			}
+			return rs.getInt("stock_test");
 		}
 		catch (Exception ee) {
 			ee.printStackTrace();
@@ -155,8 +169,15 @@ public class LiaisonBDD {
 		try
 		{
 			con = DriverManager.getConnection(URL, LOGIN, PASS);
-			ps = con.prepareStatement("Select stock_masque From Masque where='" + stock.getName() + "'");
-			return ps.getResultSet().findColumn("stock_masque");
+			ps = con.prepareStatement("Select stock_masque, nom_masque From Masque");
+			ResultSet rs=ps.executeQuery();
+			rs.next();
+			String tmp = rs.getString("nom_masque");
+			while(!tmp.equalsIgnoreCase(stock.getName())) {
+				rs.next();
+				tmp = rs.getString("nom_gel");
+			}
+			return rs.getInt("stock_masque");
 		}
 		catch (Exception ee) {
 			ee.printStackTrace();
@@ -178,10 +199,10 @@ public class LiaisonBDD {
 			con = DriverManager.getConnection(URL, LOGIN, PASS);
 			//pr�paration de l'instruction SQL, chaque ? repr�sente une valeur � communiquer dans l'insertion
 			//les getters permettent de r�cup�rer les valeurs des attributs souhait�s de nouvArticle
-			ps = con.prepareStatement("INSERT INTO Gel (nom_gel, stock_gel, date_reception) VALUES (?, ?, ?)");
-			ps.setString(1, stock.getName());
-			ps.setInt(2, getGel(stock) + stock.getNombreDeStock());
-			ps.setString(3, dateToString());
+			ps = con.prepareStatement("UPDATE Gel SET stock_gel = ?, date_reception = ? where nom_gel = ?");
+			ps.setInt(1, getGel(stock) + stock.getNombreDeStock());
+			ps.setDate(2, java.sql.Date.valueOf(LocalDateTime.now().toLocalDate()));
+			ps.setString(3, stock.getName());
 
 			//Ex�cution de la requ�te
 			retour=ps.executeUpdate();
@@ -208,10 +229,10 @@ public class LiaisonBDD {
 		try {
 			//tentative de connexion
 			con = DriverManager.getConnection(URL, LOGIN, PASS);
-			ps = con.prepareStatement("INSERT INTO Masque (nom_masque, stock_masque, date_reception) VALUES (?, ?, ?)");
-			ps.setString(1, stock.getName());
-			ps.setInt(2, getMasque(stock) + stock.getNombreDeStock());
-			ps.setString(3, dateToString());
+			ps = con.prepareStatement("UPDATE Masque SET stock_masque = ?, date_reception = ? where nom_masque = ?");
+			ps.setInt(1, getMasque(stock) + stock.getNombreDeStock());
+			ps.setDate(2, java.sql.Date.valueOf(LocalDateTime.now().toLocalDate()));
+			ps.setString(3, stock.getName());
 
 			//Ex�cution de la requ�te
 			retour=ps.executeUpdate();
@@ -236,10 +257,10 @@ public class LiaisonBDD {
 		try {
 			//tentative de connexion
 			con = DriverManager.getConnection(URL, LOGIN, PASS);
-			ps = con.prepareStatement("INSERT INTO Vaccin (nom_vaccin, stock_vaccin, date_expiration) VALUES (?, ?, ?)");
-			ps.setString(1, stock.getName());
-			ps.setInt(2, getVaccin(stock) + stock.getNombreDeStock());
-			ps.setString(3, dateToString());
+			ps = con.prepareStatement("UPDATE Test SET stock_test = ?, date_reception = ? where nom_test = ?");
+			ps.setInt(1, getVaccin(stock) + stock.getNombreDeStock());
+			ps.setDate(2, java.sql.Date.valueOf(LocalDateTime.now().toLocalDate()));
+			ps.setString(3, stock.getName());
 
 			//Ex�cution de la requ�te
 			retour=ps.executeUpdate();
@@ -268,7 +289,7 @@ public class LiaisonBDD {
 			ps.setInt(1, p.getId());
 			ps.setString(2, p.getNom());
 			ps.setString(3, p.getPrenom());
-			ps.setString(4, p.getDate());
+			ps.setDate(4, java.sql.Date.valueOf(p.getDateDeNaissance().toLocalDate()));
 			ps.setBoolean(5, p.getTest());
 
 			//Ex�cution de la requ�te
