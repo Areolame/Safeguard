@@ -30,6 +30,8 @@ public class PanelAjoutPersonne extends JPanel {
 	public JButton boutonCancelPersonne;
 	
 	public PanelAjoutPersonne() {
+		
+		this.setSize(400,350);
 		//création du layout
 		GridLayout experimentLayout = new GridLayout(0,1);
 		this.setLayout(experimentLayout);

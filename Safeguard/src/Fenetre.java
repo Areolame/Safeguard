@@ -37,6 +37,7 @@ public class Fenetre extends JFrame implements ActionListener {
 	
 	// Différents panel
 	private PanelAjoutPersonne panelAjoutPersonne;
+	private PanelStock panelStock;
 	
 	public Fenetre() {
 		// on instancie les différentes classes
@@ -51,16 +52,26 @@ public class Fenetre extends JFrame implements ActionListener {
 		this.panelAjoutPersonne.boutonAddPersonne.addActionListener(this);
 		this.panelAjoutPersonne.boutonCancelPersonne.addActionListener(this);
 		
+		this.panelStock = new PanelStock();
+		this.panelStock.boutonAdd.addActionListener(this);
 		
 		//on fixe le titre de la fenêtre
 		this.setTitle("Covid-Statistics");
 		//initialisation de la taille de la fenêtre
-		this.setSize(400,350);
+		//this.setSize(400,350);
 		
 		//permet de quitter l'application si on ferme la fenêtre
 		this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		
-		this.setContentPane(panelAjoutPersonne);
+		JPanel panelPrincipal = new JPanel();
+		GridLayout layoutPrincipal = new GridLayout(0,2);
+		panelPrincipal.setLayout(layoutPrincipal);
+		
+		// Ajout des panels dans le panel principal
+		panelPrincipal.add(this.panelAjoutPersonne);
+		panelPrincipal.add(this.panelStock);
+		
+		this.setContentPane(panelPrincipal);
 
 		//affichage de la fenêtre
 		this.setVisible(true);
@@ -75,6 +86,9 @@ public class Fenetre extends JFrame implements ActionListener {
 			}
 			else if(ae.getSource()==this.panelAjoutPersonne.boutonCancelPersonne) {
 				this.panelAjoutPersonne.cancel();
+			}
+			else if (ae.getSource()==this.panelStock.boutonAdd) {
+				this.panelStock.add();
 			}
 		}
 		catch (Exception e) {
