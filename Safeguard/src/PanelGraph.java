@@ -73,8 +73,8 @@ public class PanelGraph extends JPanel {
         int origine = origineX;
         for(int i = 1; i < LogGel.size(); ++i)
         {
-            g.drawLine(origine+stepX*(i - 1), origineY+LogGel.get(i - 1).getNombreDeStock(),
-                    origine+stepX*(i), origineY+LogGel.get(i).getNombreDeStock());
+            g.drawLine(origine+stepX*(i - 1), origineY-LogGel.get(i - 1).getNombreDeStock(),
+                    origine+stepX*(i), origineY-LogGel.get(i).getNombreDeStock());
         }
     }
 
@@ -96,7 +96,7 @@ public class PanelGraph extends JPanel {
         }
         else if(stock.isGel())
         {
-            LogGel.add((StockGel) stock);
+        	LogGel.add((StockGel) stock);
             paintGel();
         }
         else if(stock.isMasque())
@@ -109,6 +109,7 @@ public class PanelGraph extends JPanel {
             LogTest.add((StockTest) stock);
             paintTest();
         }
+        this.updateUI();
     }
 
     public PanelGraph() {
