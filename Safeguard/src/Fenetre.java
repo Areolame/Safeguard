@@ -33,7 +33,7 @@ public class Fenetre extends JFrame implements ActionListener {
 	public Fenetre() {
 		// on instancie les différentes classes
 		liaison = new LiaisonBDD();
-		erreurBox = new JDialog(this,"Erreur");
+		erreurBox = new JDialog(this,"Error");
 		messageErreur = new JLabel("");
 		erreurBox.add(messageErreur);
 		erreurBox.setSize(250, 100);
@@ -116,14 +116,14 @@ public class Fenetre extends JFrame implements ActionListener {
 		}
 		catch (Exception e) {
 			System.out.println(e);
-			messageErreur.setText("Erreur: " + e);
+			messageErreur.setText("Error: " + e);
 			erreurBox.setVisible(true);
 		}
 		
 	}
 	
 	public static void messageErreur(String str) {
-		messageErreur.setText("Erreur: " + str);
+		messageErreur.setText("Error: " + str);
 		erreurBox.setVisible(true);
 	}
 

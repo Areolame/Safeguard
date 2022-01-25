@@ -29,10 +29,10 @@ public class PanelAjoutStock extends JPanel {
         
 		// Définition des types
 		listeType.add("Gel");
-		listeType.add("Masque");
+		listeType.add("Mask");
 		listeType.add("Test");
-		listeType.add("Vaccin");
-		listeType.add("Autre");
+		listeType.add("Vaccine");
+		listeType.add("Other");
 		
 		nombre_element_table_stock = Fenetre.liaison.tailleTableStock();
 		
@@ -41,11 +41,11 @@ public class PanelAjoutStock extends JPanel {
         layoutPanel1.setHgap(10);
         panel1.setLayout(layoutPanel1);
 		//instantiation des  composants graphiques
-        JLabel nomPage = new JLabel("Ajout Nouveau Stock", SwingConstants.CENTER);
+        JLabel nomPage = new JLabel("Add New Items", SwingConstants.CENTER);
 		boutonAdd = new JButton("Add");
 		
-		JLabel typeLabel = new JLabel("Type Inventaire", SwingConstants.CENTER);
-		JLabel nomLabel = new JLabel("Nom de l'objet", SwingConstants.CENTER);
+		JLabel typeLabel = new JLabel("Item Type", SwingConstants.CENTER);
+		JLabel nomLabel = new JLabel("Item Name", SwingConstants.CENTER);
 		JLabel stockLabel = new JLabel("Stock", SwingConstants.CENTER);
 		panel1.add(typeLabel);
 		panel1.add(nomLabel);
@@ -74,10 +74,10 @@ public class PanelAjoutStock extends JPanel {
 		String stock = stock_champ.getText();
 		if (!nom.isBlank()&&!stock.isBlank()) {
 			String type = (String)combo_liste.getSelectedItem();
-			if (type.equals("Autre")) {
+			if (type.equals("Other")) {
 				Boolean exist = Fenetre.liaison.checkExistStock(nom);
 				if (exist) {
-					Fenetre.messageErreur("Ce champ existe déjà.");
+					Fenetre.messageErreur("This Item already exists.");
 				}
 				else {
 					nombre_element_table_stock++;
@@ -88,7 +88,7 @@ public class PanelAjoutStock extends JPanel {
 			else {
 				Boolean exist = Fenetre.liaison.checkExist(type, nom);
 				if (exist) {
-					Fenetre.messageErreur("Ce champ existe déjà.");
+					Fenetre.messageErreur("This Item already exists.");
 				}
 				else {
 					Fenetre.liaison.ajoutLigneTable(type, nom, Integer.parseInt(stock));

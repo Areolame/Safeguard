@@ -32,6 +32,6 @@ public class StockMasque extends Stock {
 
     @Override
     public int getID() {
-        return TypeStock.Masque.getID();
+        return TypeStock.Mask.getID();
     }
 }

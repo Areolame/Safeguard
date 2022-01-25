@@ -93,8 +93,8 @@ public class PanelGraph extends JPanel {
     private void paintOrigine()
     {
         g.setColor(Color.BLACK);
-        g.drawString("Quantité", origineX-10, origineY-275);
-        g.drawString("Numéro d'ajout", origineX+280, origineY);
+        g.drawString("Quantity", origineX-10, origineY-275);
+        g.drawString("Stock value", origineX+280, origineY);
         g.drawLine(origineX, origineY, origineX+275, origineY);
         g.drawLine(origineX, origineY, origineX, origineY-500);
     }

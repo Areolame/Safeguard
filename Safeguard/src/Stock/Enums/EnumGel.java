@@ -1,23 +1,23 @@
 package Stock.Enums;
 
 public enum EnumGel {
-	Hydroalcoolique;
+	Hydroalcoholic;
 
     public String getName()
     {
         switch (this)
         {
-            case Hydroalcoolique:
-                return "Hydroalcoolique";
+            case Hydroalcoholic:
+                return "Hydroalcoholic";
         }
         return "Error";
     }
     
     public static EnumGel from(String name)
     {
-        if(name.toLowerCase().contains("hydroalcoolique"))
+        if(name.toLowerCase().contains("hydroalcoholic"))
         {
-            return EnumGel.Hydroalcoolique;
+            return EnumGel.Hydroalcoholic;
         }
         return null;
     }

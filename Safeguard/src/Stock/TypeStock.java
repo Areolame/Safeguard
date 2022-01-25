@@ -3,11 +3,11 @@ import Stock.*;
 import Stock.Enums.*;
 
 public enum TypeStock {
-    Vaccin,
-    Masque,
+    Vaccine,
+    Mask,
     Gel,
     Test,
-	Autre;
+	Other;
 
 
     public int getID()
@@ -16,9 +16,9 @@ public enum TypeStock {
         {
             case Gel:
                 return 0;
-            case Masque:
+            case Mask:
                 return 1;
-            case Vaccin:
+            case Vaccine:
                 return 2;
             case Test:
                 return 3;
@@ -28,7 +28,7 @@ public enum TypeStock {
     
     public static String getFrom(String nomMateriel)
     {
-        if(nomMateriel.equalsIgnoreCase(EnumGel.Hydroalcoolique.getName()))
+        if(nomMateriel.equalsIgnoreCase(EnumGel.Hydroalcoholic.getName()))
         {
             return "Gel";
         }
@@ -36,23 +36,23 @@ public enum TypeStock {
                 || nomMateriel.equalsIgnoreCase(EnumVaccin.Pfizer.getName())
                 || nomMateriel.equalsIgnoreCase(EnumVaccin.Moderna.getName()))
         {
-            return "Vaccin";
+            return "Vaccine";
         }
-        else if(nomMateriel.equalsIgnoreCase(EnumTest.Antigenique.getName())
+        else if(nomMateriel.equalsIgnoreCase(EnumTest.Antigenic.getName())
                 || nomMateriel.equalsIgnoreCase(EnumTest.PCR.getName()))
         {
             return "Test";
         }
         else if(nomMateriel.toLowerCase().equalsIgnoreCase(EnumMasque.FFP1.getName())
                 || nomMateriel.toLowerCase().equalsIgnoreCase(EnumMasque.FFP2.getName())
-                || nomMateriel.toLowerCase().equalsIgnoreCase(EnumMasque.Tissu.getName())
+                || nomMateriel.toLowerCase().equalsIgnoreCase(EnumMasque.Tissue.getName())
                 || nomMateriel.toLowerCase().equalsIgnoreCase(EnumMasque.FFP3.getName()))
         {
-            return "Masque";
+            return "Mask";
         }
         else
         {
-            return "Autre";
+            return "Other";
         }
     }
 }

@@ -2,7 +2,7 @@ package Stock.Enums;
 
 public enum EnumTest {
     PCR,
-    Antigenique;
+    Antigenic;
 
 
     public String getName()
@@ -11,17 +11,17 @@ public enum EnumTest {
         {
             case PCR:
                 return "PCR";
-            case Antigenique:
-                return "Antigenique";
+            case Antigenic:
+                return "Antigenic";
         }
         return "Error";
     }
 
     public static EnumTest from(String name)
     {
-        if(name.toLowerCase().contains("antigenique"))
+        if(name.toLowerCase().contains("antigenic"))
         {
-            return EnumTest.Antigenique;
+            return EnumTest.Antigenic;
         }
         else if(name.toLowerCase().contains("pcr"))
         {

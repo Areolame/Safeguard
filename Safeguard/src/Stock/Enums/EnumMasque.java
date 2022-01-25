@@ -6,7 +6,7 @@ public enum EnumMasque {
     FFP1,
     FFP2,
     FFP3,
-    Tissu;
+    Tissue;
 
     public String getName()
     {
@@ -18,8 +18,8 @@ public enum EnumMasque {
                 return "FFP2";
             case FFP3:
                 return "FFP3";
-            case Tissu:
-                return "Tissu";
+            case Tissue:
+                return "Tissue";
         }
         return "Error";
     }
@@ -38,9 +38,9 @@ public enum EnumMasque {
         {
             return EnumMasque.FFP3;
         }
-        else if(name.toLowerCase().contains("tissu"))
+        else if(name.toLowerCase().contains("tissue"))
         {
-            return EnumMasque.Tissu;
+            return EnumMasque.Tissue;
         }
         return null;
     }

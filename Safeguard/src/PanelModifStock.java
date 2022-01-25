@@ -78,7 +78,7 @@ public class PanelModifStock extends JPanel {
 			addToTotaux("Masque", stock.getNombreDeStock());
 			liste.add(stock.getName());
 		}
-		tmpLabel1 = new JLabel("Masque", SwingConstants.CENTER);
+		tmpLabel1 = new JLabel("Mask", SwingConstants.CENTER);
 		listeType1 = new JComboBox<String>(liste);
 		tmpField1 = new JFormattedTextField();
 		panel1.add(tmpLabel1);
@@ -114,7 +114,7 @@ public class PanelModifStock extends JPanel {
 			addToTotaux("Vaccin", stock.getNombreDeStock());
 			liste.add(stock.getName());
 		}
-		tmpLabel1 = new JLabel("Vaccin", SwingConstants.CENTER);
+		tmpLabel1 = new JLabel("Vaccine", SwingConstants.CENTER);
 		listeType1 = new JComboBox<String>(liste);
 		tmpField1 = new JFormattedTextField();
 		panel1.add(tmpLabel1);
@@ -133,7 +133,7 @@ public class PanelModifStock extends JPanel {
 			{
 				liste.add(stock.getName());
 			}
-			tmpLabel1 = new JLabel("Autre", SwingConstants.CENTER);
+			tmpLabel1 = new JLabel("Other", SwingConstants.CENTER);
 			listeType1 = new JComboBox<String>(liste);
 			tmpField1 = new JFormattedTextField();
 			panel1.add(tmpLabel1);

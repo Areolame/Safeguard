@@ -93,11 +93,11 @@ public class LiaisonBDD {
 		try
 		{
 			con = DriverManager.getConnection(URL, LOGIN, PASS);
-			ps = con.prepareStatement("Select nom_masque, stock_masque From Masque");
+			ps = con.prepareStatement("Select nom_mask, stock_mask From Mask");
 			ResultSet rs=ps.executeQuery();
 			while(rs.next())
 			{
-				stocks.add(new StockMasque(rs.getString("nom_masque"), rs.getInt("stock_masque")));
+				stocks.add(new StockMasque(rs.getString("nom_mask"), rs.getInt("stock_mask")));
 			}
 		}
 		catch (Exception ee) {
@@ -116,11 +116,11 @@ public class LiaisonBDD {
 		try
 		{
 			con = DriverManager.getConnection(URL, LOGIN, PASS);
-			ps = con.prepareStatement("Select nom_vaccin, stock_vaccin From Vaccin");
+			ps = con.prepareStatement("Select nom_vaccine, stock_vaccine From Vaccine");
 			ResultSet rs=ps.executeQuery();
 			while(rs.next())
 			{
-				stocks.add(new StockVaccin(rs.getString("nom_vaccin"), rs.getInt("stock_vaccin")));
+				stocks.add(new StockVaccin(rs.getString("nom_vaccine"), rs.getInt("stock_vaccine")));
 			}
 		}
 		catch (Exception ee) {
@@ -211,15 +211,15 @@ public class LiaisonBDD {
 		try
 		{
 			con = DriverManager.getConnection(URL, LOGIN, PASS);
-			ps = con.prepareStatement("Select stock_vaccin, nom_vaccin From Vaccin");
+			ps = con.prepareStatement("Select stock_vaccine, nom_vaccine From Vaccine");
 			ResultSet rs=ps.executeQuery();
 			rs.next();
-			String tmp = rs.getString("nom_vaccin");
+			String tmp = rs.getString("nom_vaccine");
 			while(!tmp.equalsIgnoreCase(stock.getName())) {
 				rs.next();
-				tmp = rs.getString("nom_vaccin");
+				tmp = rs.getString("nom_vaccine");
 			}
-			return rs.getInt("stock_vaccin");
+			return rs.getInt("stock_vaccine");
 		}
 		catch (Exception ee) {
 			ee.printStackTrace();
@@ -263,15 +263,15 @@ public class LiaisonBDD {
 		try
 		{
 			con = DriverManager.getConnection(URL, LOGIN, PASS);
-			ps = con.prepareStatement("Select stock_masque, nom_masque From Masque");
+			ps = con.prepareStatement("Select stock_mask, nom_mask From Mask");
 			ResultSet rs=ps.executeQuery();
 			rs.next();
-			String tmp = rs.getString("nom_masque");
+			String tmp = rs.getString("nom_mask");
 			while(!tmp.equalsIgnoreCase(stock.getName())) {
 				rs.next();
-				tmp = rs.getString("nom_masque");
+				tmp = rs.getString("nom_mask");
 			}
-			return rs.getInt("stock_masque");
+			return rs.getInt("stock_mask");
 		}
 		catch (Exception ee) {
 			ee.printStackTrace();
@@ -346,7 +346,7 @@ public class LiaisonBDD {
 		try {
 			//tentative de connexion
 			con = DriverManager.getConnection(URL, LOGIN, PASS);
-			ps = con.prepareStatement("UPDATE Masque SET stock_masque = ?, date_reception = ? where nom_masque = ?");
+			ps = con.prepareStatement("UPDATE Mask SET stock_mask = ?, date_reception = ? where nom_mask = ?");
 			total = getMasque(stock) + stock.getNombreDeStock();
 			ps.setInt(1, total);
 			ps.setDate(2, java.sql.Date.valueOf(LocalDateTime.now().toLocalDate()));
@@ -375,7 +375,7 @@ public class LiaisonBDD {
 		try {
 			//tentative de connexion
 			con = DriverManager.getConnection(URL, LOGIN, PASS);
-			ps = con.prepareStatement("UPDATE Vaccin SET stock_vaccin = ?, date_reception = ? where nom_vaccin = ?");
+			ps = con.prepareStatement("UPDATE Vaccine SET stock_vaccine = ?, date_reception = ? where nom_vaccine = ?");
 			total = getVaccin(stock) + stock.getNombreDeStock();
 			ps.setInt(1, total);
 			ps.setDate(2, java.sql.Date.valueOf(LocalDateTime.now().toLocalDate()));

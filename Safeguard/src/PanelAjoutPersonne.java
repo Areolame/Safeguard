@@ -41,8 +41,8 @@ public class PanelAjoutPersonne extends JPanel {
     	textFieldNom=new JTextField();
     	labelDateNaissance=new JLabel("Date of birth", SwingConstants.CENTER);
     	labelDateJour=new JLabel("Day", SwingConstants.CENTER);
-    	labelDateMois=new JLabel("Year", SwingConstants.CENTER);
-    	labelDateAnnee=new JLabel("Annee", SwingConstants.CENTER);
+    	labelDateMois=new JLabel("Month", SwingConstants.CENTER);
+    	labelDateAnnee=new JLabel("Year", SwingConstants.CENTER);
     	textFieldDateJour = new JFormattedTextField(new SimpleDateFormat("dd"));
     	textFieldDateMois = new JFormattedTextField(new SimpleDateFormat("MM"));
     	textFieldDateAnnee = new JFormattedTextField(new SimpleDateFormat("yyyy"));
@@ -89,7 +89,7 @@ public class PanelAjoutPersonne extends JPanel {
 		String prenom = this.textFieldPrenom.getText();
 		String nom = this.textFieldNom.getText();
 		if (jour.isBlank()||mois.isBlank()||annee.isBlank()||prenom.isBlank()||nom.isBlank()) {
-            Fenetre.messageErreur.setText("L'un des champs est vide");
+            Fenetre.messageErreur.setText("Make sure to fill all the fields.");
 			Fenetre.erreurBox.setVisible(true); 
 		}
 		else {

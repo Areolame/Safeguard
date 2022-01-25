@@ -40,7 +40,7 @@ public class StockVaccin extends Stock {
 
     @Override
     public int getID() {
-        return TypeStock.Vaccin.getID();
+        return TypeStock.Vaccine.getID();
     }
 
 
