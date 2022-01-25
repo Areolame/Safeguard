@@ -32,15 +32,15 @@ public enum EnumMasque {
         }
         else if(name.toLowerCase().contains("ffp2"))
         {
-            return EnumMasque.FFP1;
+            return EnumMasque.FFP2;
         }
         else if(name.toLowerCase().contains("ffp3"))
         {
-            return EnumMasque.FFP1;
+            return EnumMasque.FFP3;
         }
         else if(name.toLowerCase().contains("tissu"))
         {
-            return EnumMasque.FFP1;
+            return EnumMasque.Tissu;
         }
         return null;
     }

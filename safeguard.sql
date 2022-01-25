@@ -2,11 +2,7 @@ CREATE SCHEMA IF NOT EXISTS gestionhopital;
 USE gestionhopital;
 
 CREATE TABLE IF NOT EXISTS Stock (
-  id INT PRIMARY KEY AUTO_INCREMENT NOT NULL,
-  nombre_masque INT NOT NULL,
-  type_masque varchar(100) NOT NULL,
-  nombre_vaccin INT NOT NULL,
-  type_vaccin varchar(100) NOT NULL
+  nombre_element INT PRIMARY KEY NOT NULL  
 );
 
 CREATE TABLE IF NOT EXISTS Vaccin (

@@ -238,7 +238,7 @@ public class LiaisonBDD {
 			String tmp = rs.getString("nom_masque");
 			while(!tmp.equalsIgnoreCase(stock.getName())) {
 				rs.next();
-				tmp = rs.getString("nom_gel");
+				tmp = rs.getString("nom_masque");
 			}
 			return rs.getInt("stock_masque");
 		}

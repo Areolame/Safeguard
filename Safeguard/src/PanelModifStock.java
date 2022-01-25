@@ -18,7 +18,6 @@ import Stock.Enums.*;
 
 import javax.swing.*;
 import Stock.*;
-import javafx.scene.layout.Pane;
 
 public class PanelModifStock extends JPanel {
 	
@@ -105,11 +104,11 @@ public class PanelModifStock extends JPanel {
 					stock = new StockMasque(EnumMasque.from(nom_objet), nombre_stock);
 				}
 				if (i == 2){
-					stock = new StockVaccin(EnumVaccin.from(nom_objet), nombre_stock);
+					stock = new StockTest(EnumTest.from(nom_objet), nombre_stock);
 				}
 				if (i == 3)
 				{
-					stock = new StockTest(EnumTest.from(nom_objet), nombre_stock);
+					stock = new StockVaccin(EnumVaccin.from(nom_objet), nombre_stock);
 				}
 
 				nombre_total = Fenetre.liaison.ajouterStock(stock);
