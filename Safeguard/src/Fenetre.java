@@ -1,9 +1,11 @@
 import java.awt.Color;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.image.BufferedImage;
 import java.awt.Dimension;
 import java.awt.GridLayout;
 
+import javax.imageio.ImageIO;
 import javax.swing.BorderFactory;
 import javax.swing.JButton;
 import javax.swing.JDialog;
@@ -41,6 +43,7 @@ public class Fenetre extends JFrame implements ActionListener {
 	public static PanelStock panelStock;
 	public static PanelModifStock panelModifStock;
 	public static PanelGraph panelGraph;
+	public static PanelUHA panelUHA;
 	
 	public Fenetre() {
 		// on instancie les différentes classes
@@ -64,6 +67,8 @@ public class Fenetre extends JFrame implements ActionListener {
 		
 		this.panelGraph = new PanelGraph();
 		
+		this.panelUHA = new PanelUHA();
+
 		//on fixe le titre de la fenêtre
 		this.setTitle("Covid-Statistics");
 		int sizeX = 400;
@@ -84,6 +89,7 @@ public class Fenetre extends JFrame implements ActionListener {
 		panelPrincipal.add(this.panelStock);
 		panelPrincipal.add(this.panelModifStock);
 		panelPrincipal.add(this.panelGraph);
+		panelPrincipal.add(this.panelUHA);
 		
 		this.setContentPane(panelPrincipal);
 
