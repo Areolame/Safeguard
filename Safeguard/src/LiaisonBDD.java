@@ -255,7 +255,7 @@ public class LiaisonBDD {
 	{
 		Connection con = null;
 		PreparedStatement ps = null;
-		int retour=0;
+		int total = 0;
 		//connexion � la base de donn�es
 		try {
 			//tentative de connexion
@@ -263,12 +263,13 @@ public class LiaisonBDD {
 			//pr�paration de l'instruction SQL, chaque ? repr�sente une valeur � communiquer dans l'insertion
 			//les getters permettent de r�cup�rer les valeurs des attributs souhait�s de nouvArticle
 			ps = con.prepareStatement("UPDATE Gel SET stock_gel = ?, date_reception = ? where nom_gel = ?");
-			ps.setInt(1, getGel(stock) + stock.getNombreDeStock());
+			total = getGel(stock) + stock.getNombreDeStock();
+			ps.setInt(1, total);
 			ps.setDate(2, java.sql.Date.valueOf(LocalDateTime.now().toLocalDate()));
 			ps.setString(3, stock.getName());
 
 			//Ex�cution de la requ�te
-			retour=ps.executeUpdate();
+			ps.executeUpdate();
 
 
 		}
@@ -278,7 +279,7 @@ public class LiaisonBDD {
 		try {if (ps != null)ps.close();} catch (Exception t) {}
 		try {if (con != null)con.close();} catch (Exception t) {}
 
-		return retour;
+		return total;
 	}
 
 
@@ -287,18 +288,19 @@ public class LiaisonBDD {
 	{
 		Connection con = null;
 		PreparedStatement ps = null;
-		int retour=0;
+		int total = 0;
 		//connexion � la base de donn�es
 		try {
 			//tentative de connexion
 			con = DriverManager.getConnection(URL, LOGIN, PASS);
 			ps = con.prepareStatement("UPDATE Masque SET stock_masque = ?, date_reception = ? where nom_masque = ?");
-			ps.setInt(1, getMasque(stock) + stock.getNombreDeStock());
+			total = getMasque(stock) + stock.getNombreDeStock();
+			ps.setInt(1, total);
 			ps.setDate(2, java.sql.Date.valueOf(LocalDateTime.now().toLocalDate()));
 			ps.setString(3, stock.getName());
 
 			//Ex�cution de la requ�te
-			retour=ps.executeUpdate();
+			ps.executeUpdate();
 
 
 		}
@@ -308,25 +310,26 @@ public class LiaisonBDD {
 		try {if (ps != null)ps.close();} catch (Exception t) {}
 		try {if (con != null)con.close();} catch (Exception t) {}
 
-		return retour;
+		return total;
 	}
 
 	public int ajouterVaccin(Stock stock)
 	{
 		Connection con = null;
 		PreparedStatement ps = null;
-		int retour=0;
+		int total = 0;
 		//connexion � la base de donn�es
 		try {
 			//tentative de connexion
 			con = DriverManager.getConnection(URL, LOGIN, PASS);
 			ps = con.prepareStatement("UPDATE Vaccin SET stock_vaccin = ?, date_expiration = ? where nom_vaccin = ?");
-			ps.setInt(1, getVaccin(stock) + stock.getNombreDeStock());
+			total = getVaccin(stock) + stock.getNombreDeStock();
+			ps.setInt(1, total);
 			ps.setDate(2, java.sql.Date.valueOf(LocalDateTime.now().toLocalDate()));
 			ps.setString(3, stock.getName());
 
 			//Ex�cution de la requ�te
-			retour=ps.executeUpdate();
+			ps.executeUpdate();
 
 
 		}
@@ -336,25 +339,26 @@ public class LiaisonBDD {
 		try {if (ps != null)ps.close();} catch (Exception t) {}
 		try {if (con != null)con.close();} catch (Exception t) {}
 
-		return retour;
+		return total;
 	}
 
 	public int ajouterTest(Stock stock)
 	{
 		Connection con = null;
 		PreparedStatement ps = null;
-		int retour=0;
+		int total = 0;
 		//connexion � la base de donn�es
 		try {
 			//tentative de connexion
 			con = DriverManager.getConnection(URL, LOGIN, PASS);
 			ps = con.prepareStatement("UPDATE Test SET stock_test = ?, date_reception = ? where nom_test = ?");
-			ps.setInt(1, getTest(stock) + stock.getNombreDeStock());
+			total = getTest(stock) + stock.getNombreDeStock();
+			ps.setInt(1, total);
 			ps.setDate(2, java.sql.Date.valueOf(LocalDateTime.now().toLocalDate()));
 			ps.setString(3, stock.getName());
 
 			//Ex�cution de la requ�te
-			retour=ps.executeUpdate();
+			ps.executeUpdate();
 
 
 		}
@@ -364,7 +368,7 @@ public class LiaisonBDD {
 		try {if (ps != null)ps.close();} catch (Exception t) {}
 		try {if (con != null)con.close();} catch (Exception t) {}
 
-		return retour;
+		return total;
 	}
 	
 	public int ajouterPersonne(Personne p)
