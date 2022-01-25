@@ -43,40 +43,105 @@ public class PanelModifStock extends JPanel {
 		boutonCancel = new JButton("Cancel");
 
 		initTotaux();
-		initPanel(panel1, "Gel");
 
 		// Récupération de l'inventaire dans la BDD
+		ArrayList<StockGel> stockGel = Fenetre.liaison.getStockGel();
 		ArrayList<StockMasque> stockMasques = Fenetre.liaison.getStockMasque();
 		ArrayList<StockVaccin> stockVaccin = Fenetre.liaison.getStockVaccin();
 		ArrayList<StockTest> stockTest = Fenetre.liaison.getStockTest();
-
-
-		/*
-
-		int length = mapValeur.keySet().toArray().length;
-		String type = TypeStock.getFrom(mapValeur.keySet().toArray()[0].toString());
-		Vector<String> liste = new Vector<String>();
-		for (Stock key : listStock) {
-			String tmpType = TypeStock.getFrom(key);
-			addToTotaux(key, mapValeur.get(key));
-			if (key.equals(mapValeur.keySet().toArray()[length-1])) {
-				liste.add(key);
-			}
-		    if (!tmpType.equalsIgnoreCase(type)||key.equals(mapValeur.keySet().toArray()[length-1])) {
-		    	JLabel tmpLabel1 = new JLabel(type, SwingConstants.CENTER);
-			    JComboBox<String> listeType1 = new JComboBox<String>(liste);
-			    JFormattedTextField tmpField1 = new JFormattedTextField();
-			    liste = new Vector<String>();
-			    panel1.add(tmpLabel1);
-			    panel1.add(listeType1);
-			    panel1.add(tmpField1);
-			    fieldList.add(tmpField1);
-			    comboList.add(listeType1);
-		    }
-		    type = tmpType;
-			liste.add(key);
+		
+		// ---------------------------------------------
+		// STOCK GEL
+		// ---------------------------------------------
+		Vector<String> liste = new Vector<>();
+		for(Stock stock : stockGel)
+		{
+			addToTotaux("Gel", stock.getNombreDeStock());
+			liste.add(stock.getName());
 		}
-		*/
+		JLabel tmpLabel1 = new JLabel("Gel", SwingConstants.CENTER);
+		JComboBox<String> listeType1 = new JComboBox<String>(liste);
+		JFormattedTextField tmpField1 = new JFormattedTextField();
+		panel1.add(tmpLabel1);
+		panel1.add(listeType1);
+		panel1.add(tmpField1);
+		fieldList.add(tmpField1);
+		comboList.add(listeType1);
+		
+		// ---------------------------------------------
+		// STOCK Masque
+		// ---------------------------------------------
+		liste = new Vector<>();
+		for(Stock stock : stockMasques)
+		{
+			addToTotaux("Masque", stock.getNombreDeStock());
+			liste.add(stock.getName());
+		}
+		tmpLabel1 = new JLabel("Masque", SwingConstants.CENTER);
+		listeType1 = new JComboBox<String>(liste);
+		tmpField1 = new JFormattedTextField();
+		panel1.add(tmpLabel1);
+		panel1.add(listeType1);
+		panel1.add(tmpField1);
+		fieldList.add(tmpField1);
+		comboList.add(listeType1);
+		
+		// ---------------------------------------------
+		// STOCK Test
+		// ---------------------------------------------
+		liste = new Vector<>();
+		for(Stock stock : stockTest)
+		{
+			addToTotaux("Test", stock.getNombreDeStock());
+			liste.add(stock.getName());
+		}
+		tmpLabel1 = new JLabel("Test", SwingConstants.CENTER);
+		listeType1 = new JComboBox<String>(liste);
+		tmpField1 = new JFormattedTextField();
+		panel1.add(tmpLabel1);
+		panel1.add(listeType1);
+		panel1.add(tmpField1);
+		fieldList.add(tmpField1);
+		comboList.add(listeType1);
+		
+		// ---------------------------------------------
+		// STOCK Vaccin
+		// ---------------------------------------------
+		liste = new Vector<>();
+		for(Stock stock : stockVaccin)
+		{
+			addToTotaux("Vaccin", stock.getNombreDeStock());
+			liste.add(stock.getName());
+		}
+		tmpLabel1 = new JLabel("Vaccin", SwingConstants.CENTER);
+		listeType1 = new JComboBox<String>(liste);
+		tmpField1 = new JFormattedTextField();
+		panel1.add(tmpLabel1);
+		panel1.add(listeType1);
+		panel1.add(tmpField1);
+		fieldList.add(tmpField1);
+		comboList.add(listeType1);
+		
+		
+		// ---------------------------------------------
+		// STOCK Autre
+		// ---------------------------------------------
+		/*
+		liste = new Vector<>();
+		for(Stock stock : stockGel)
+		{
+			liste.add(stock.getName());
+		}
+		tmpLabel1 = new JLabel("Gel", SwingConstants.CENTER);
+		listeType1 = new JComboBox<String>(liste);
+		tmpField1 = new JFormattedTextField();
+		panel1.add(tmpLabel1);
+		panel1.add(listeType1);
+		panel1.add(tmpField1);
+		fieldList.add(tmpField1);
+		comboList.add(listeType1);*/
+
+		
 		//ajout des composants sur le container
     	this.add(nomPage);
 		this.add(panel1);
@@ -93,24 +158,6 @@ public class PanelModifStock extends JPanel {
 		this.setBorder(BorderFactory.createEmptyBorder(10,10,10,10));
 
 		
-	}
-
-	private void initPanel(JPanel panel1, String type)
-	{
-		Vector<String> liste = new Vector<>();
-		for(Stock stock : stocks)
-		{
-			liste.add(stock.getName());
-		}
-
-		JLabel tmpLabel1 = new JLabel(type, SwingConstants.CENTER);
-		JComboBox<String> listeType1 = new JComboBox<String>(liste);
-		JFormattedTextField tmpField1 = new JFormattedTextField();
-		panel1.add(tmpLabel1);
-		panel1.add(listeType1);
-		panel1.add(tmpField1);
-		fieldList.add(tmpField1);
-		comboList.add(listeType1);
 	}
 
 	private void initTotaux()
@@ -156,18 +203,21 @@ public class PanelModifStock extends JPanel {
 				Stock stock = null;
 				if (i == 0)
 				{
-					stock = new StockGel(EnumGel.from(nom_objet), nombre_stock);
+					stock = new StockGel(nom_objet, nombre_stock);
 				}
-				if (i == 1)
+				else if (i == 1)
 				{
-					stock = new StockMasque(EnumMasque.from(nom_objet), nombre_stock);
+					stock = new StockMasque(nom_objet, nombre_stock);
 				}
-				if (i == 2){
-					stock = new StockTest(EnumTest.from(nom_objet), nombre_stock);
+				else if (i == 2){
+					stock = new StockTest(nom_objet, nombre_stock);
 				}
-				if (i == 3)
+				else if (i == 3)
 				{
-					stock = new StockVaccin(EnumVaccin.from(nom_objet), nombre_stock);
+					stock = new StockVaccin(nom_objet, nombre_stock);
+				}
+				else if (i == 4) {
+					// Autre Stock
 				}
 
 				nombre_total = Fenetre.liaison.ajouterStock(stock);

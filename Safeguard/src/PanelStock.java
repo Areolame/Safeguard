@@ -3,6 +3,7 @@ import java.util.ArrayList;
 import java.util.LinkedHashMap;
 
 import javax.swing.*;
+import Stock.*;
 
 public class PanelStock extends JPanel {
 	
@@ -29,15 +30,14 @@ public class PanelStock extends JPanel {
 		boutonAdd = new JButton("Add");
 		
 		// Récupération de l'inventaire dans la BDD
-		
-		for (String key : PanelModifStock.mapValeur.keySet()) {
-			String value = Integer.toString(PanelModifStock.mapValeur.get(key));
-		    JLabel tmpLabel1 = new JLabel(key, SwingConstants.CENTER);
-		    JLabel tmpLabel2 = new JLabel(value, SwingConstants.CENTER);
+		ArrayList<Stock> stock = Fenetre.liaison.getStocks();
+		for (Stock s : stock) {
+		    JLabel tmpLabel1 = new JLabel(s.getName(), SwingConstants.CENTER);
+		    JLabel tmpLabel2 = new JLabel(String.valueOf(s.getNombreDeStock()), SwingConstants.CENTER);
 		    labelList.add(tmpLabel2);
 		    panel1.add(tmpLabel1);
 		    panel1.add(tmpLabel2);
-			mapLabel.put(key, tmpLabel2);
+			mapLabel.put(s.getName(), tmpLabel2);
 		}
 		
 		//ajout des composants sur le container
