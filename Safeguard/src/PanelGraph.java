@@ -92,22 +92,22 @@ public class PanelGraph extends JPanel {
     {
         if(stock.isVaccin())
         {
-          LogVaccin.add(stock.getNombreDeStock());
+          LogVaccin.add(LogVaccin.get(LogVaccin.size() - 1) + stock.getNombreDeStock());
           paintVaccin();
         }
         else if(stock.isGel())
         {
-        	LogGel.add(stock.getNombreDeStock());
+            LogGel.add(LogGel.get(LogGel.size() - 1) + stock.getNombreDeStock());
             paintGel();
         }
         else if(stock.isMasque())
         {
-            LogMasque.add(stock.getNombreDeStock());
+            LogMasque.add(LogMasque.get(LogMasque.size() - 1) + stock.getNombreDeStock());
             paintMasque();
         }
         else if(stock.isTest())
         {
-            LogTest.add(stock.getNombreDeStock());
+            LogTest.add(LogTest.get(LogTest.size() - 1) + stock.getNombreDeStock());
             paintTest();
         }
         this.updateUI();
