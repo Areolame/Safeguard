@@ -31,11 +31,12 @@ public class LiaisonBDD {
         stocks.addAll(getStockMasque());
         stocks.addAll(getStockTest());
         stocks.addAll(getStockVaccin());
+        stocks.addAll(getStockStock());
         return stocks;
     }
 	
-	public LinkedHashMap<String, Integer> getStockStock() {
-		LinkedHashMap<String, Integer> stocks = new LinkedHashMap<>();
+	public ArrayList<StockAutre> getStockStock() {
+		ArrayList<StockAutre> stocks = new ArrayList<>();
 		Connection con = null;
 		PreparedStatement ps = null;
 		try
@@ -49,7 +50,7 @@ public class LiaisonBDD {
 				for (int i=2; i<=nb_colonne; i+=2) {
 					String tmpStr = rs.getString(i);
 					int tmpInt = rs.getInt(i+1);
-					stocks.put(tmpStr,tmpInt);
+					stocks.add(new StockAutre(tmpStr,tmpInt, i/2));
 				}
 			}
 		}
@@ -171,6 +172,9 @@ public class LiaisonBDD {
 		{
 			return ajouterTest(stock);
 		}
+		else if (stock.isAutre()) {
+			return ajouterAutre(stock, ((StockAutre)(stock)).getNumero());
+		}
 		return -1;
 	}
 
@@ -276,6 +280,28 @@ public class LiaisonBDD {
 		try {if (con != null)con.close();} catch (Exception t) {}
 
 		return 0;
+	}
+	
+	public int getAutre(Stock stock, int numero)
+	{
+		Connection con = null;
+		PreparedStatement ps = null;
+		int tmp = 0;
+		try
+		{
+			con = DriverManager.getConnection(URL, LOGIN, PASS);
+			ps = con.prepareStatement("Select * From Stock");
+			ResultSet rs=ps.executeQuery();
+			rs.next();
+			tmp = rs.getInt("stock" + numero);
+		}
+		catch (Exception ee) {
+			ee.printStackTrace();
+		}
+		try {if (ps != null)ps.close();} catch (Exception t) {}
+		try {if (con != null)con.close();} catch (Exception t) {}
+
+		return tmp;
 	}
 
 	public int ajouterGel(Stock stock)
@@ -398,6 +424,33 @@ public class LiaisonBDD {
 		return total;
 	}
 	
+	public int ajouterAutre(Stock stock, int numero)
+	{
+		Connection con = null;
+		PreparedStatement ps = null;
+		int total = 0;
+		//connexion � la base de donn�es
+		try {
+			//tentative de connexion
+			con = DriverManager.getConnection(URL, LOGIN, PASS);
+			ps = con.prepareStatement("UPDATE Stock SET stock" + numero + " = ?");
+			total = getAutre(stock, numero) + stock.getNombreDeStock();
+			ps.setInt(1, total);
+
+			//Ex�cution de la requ�te
+			ps.executeUpdate();
+
+
+		}
+		catch (Exception ee) {
+			ee.printStackTrace();
+		}
+		try {if (ps != null)ps.close();} catch (Exception t) {}
+		try {if (con != null)con.close();} catch (Exception t) {}
+
+		return total;
+	}
+	
 	public int ajouterPersonne(Personne p)
 	{
 		Connection con = null;
@@ -435,10 +488,10 @@ public class LiaisonBDD {
 		try
 		{
 			con = DriverManager.getConnection(URL, LOGIN, PASS);
-			ps = con.prepareStatement("Select nom_test From " + nom_table);
+			ps = con.prepareStatement("Select nom_" + nom_table + " From " + nom_table);
 			ResultSet rs=ps.executeQuery();
 			while (rs.next()) {
-				String tmpStr = rs.getString("nom_test");
+				String tmpStr = rs.getString("nom_" + nom_table);
 				if (tmpStr.equals(nom_objet)) {
 					found = true;
 				}

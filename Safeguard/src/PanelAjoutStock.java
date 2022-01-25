@@ -82,6 +82,7 @@ public class PanelAjoutStock extends JPanel {
 				else {
 					nombre_element_table_stock++;
 					Fenetre.liaison.ajoutColonneStock(nombre_element_table_stock, nom, Integer.parseInt(stock));
+					Fenetre.panelStock.nouvelleLigne(nom, Integer.parseInt(stock));
 				}
 			}
 			else {

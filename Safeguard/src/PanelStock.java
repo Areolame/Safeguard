@@ -13,6 +13,8 @@ public class PanelStock extends JPanel {
 	public static LinkedHashMap<String, JLabel> mapLabel = new LinkedHashMap<String, JLabel>();
 	public static int nombre_element_table_stock;
 	
+	public JPanel panel1;
+	
 	// Boutons
 	public JButton boutonAdd;
 	
@@ -22,7 +24,7 @@ public class PanelStock extends JPanel {
 		GridLayout experimentLayout = new GridLayout(0,1);
 		this.setLayout(experimentLayout);
         
-        JPanel panel1 = new JPanel();
+        panel1 = new JPanel();
         GridLayout layoutPanel1 = new GridLayout(0,2);
         panel1.setLayout(layoutPanel1);
 		//instantiation des  composants graphiques
@@ -50,6 +52,16 @@ public class PanelStock extends JPanel {
 		this.setBorder(BorderFactory.createEmptyBorder(10,10,10,10));
 
 		
+	}
+	
+	public void nouvelleLigne(String nom, int stock) {
+		JLabel tmpLabel1 = new JLabel(nom, SwingConstants.CENTER);
+	    JLabel tmpLabel2 = new JLabel(String.valueOf(stock), SwingConstants.CENTER);
+	    labelList.add(tmpLabel2);
+	    panel1.add(tmpLabel1);
+	    panel1.add(tmpLabel2);
+		mapLabel.put(nom, tmpLabel2);
+		this.updateUI();
 	}
 	
 	public void add() {

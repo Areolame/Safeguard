@@ -49,6 +49,7 @@ public class PanelModifStock extends JPanel {
 		ArrayList<StockMasque> stockMasques = Fenetre.liaison.getStockMasque();
 		ArrayList<StockVaccin> stockVaccin = Fenetre.liaison.getStockVaccin();
 		ArrayList<StockTest> stockTest = Fenetre.liaison.getStockTest();
+		ArrayList<StockAutre> stockAutre = Fenetre.liaison.getStockStock();
 		
 		// ---------------------------------------------
 		// STOCK GEL
@@ -126,20 +127,21 @@ public class PanelModifStock extends JPanel {
 		// ---------------------------------------------
 		// STOCK Autre
 		// ---------------------------------------------
-		/*
-		liste = new Vector<>();
-		for(Stock stock : stockGel)
-		{
-			liste.add(stock.getName());
+		if (stockAutre.size() > 0) {
+			liste = new Vector<>();
+			for(Stock stock : stockAutre)
+			{
+				liste.add(stock.getName());
+			}
+			tmpLabel1 = new JLabel("Autre", SwingConstants.CENTER);
+			listeType1 = new JComboBox<String>(liste);
+			tmpField1 = new JFormattedTextField();
+			panel1.add(tmpLabel1);
+			panel1.add(listeType1);
+			panel1.add(tmpField1);
+			fieldList.add(tmpField1);
+			comboList.add(listeType1);
 		}
-		tmpLabel1 = new JLabel("Gel", SwingConstants.CENTER);
-		listeType1 = new JComboBox<String>(liste);
-		tmpField1 = new JFormattedTextField();
-		panel1.add(tmpLabel1);
-		panel1.add(listeType1);
-		panel1.add(tmpField1);
-		fieldList.add(tmpField1);
-		comboList.add(listeType1);*/
 
 		
 		//ajout des composants sur le container
@@ -193,6 +195,16 @@ public class PanelModifStock extends JPanel {
 		}
 	}
 	
+	public int getNumeroAutreFromNom(String nom)
+	{
+	  ArrayList<StockAutre> stockAutre = Fenetre.liaison.getStockStock();
+	  for(StockAutre stock : stockAutre)
+	  {
+	    if(stock.getName().equalsIgnoreCase(nom)) return stock.getNumero();
+	  }
+	  return -1;
+	}
+	
 	public void add() {
 		for (int i=0; i < fieldList.size(); i++) {
 			String str1 = fieldList.get(i).getText();
@@ -217,7 +229,7 @@ public class PanelModifStock extends JPanel {
 					stock = new StockVaccin(nom_objet, nombre_stock);
 				}
 				else if (i == 4) {
-					// Autre Stock
+					stock = new StockAutre(nom_objet, nombre_stock, getNumeroAutreFromNom(nom_objet));
 				}
 
 				nombre_total = Fenetre.liaison.ajouterStock(stock);

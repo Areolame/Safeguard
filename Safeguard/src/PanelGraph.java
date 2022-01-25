@@ -59,7 +59,7 @@ public class PanelGraph extends JPanel {
 
     private void paintVaccin()
     {
-        g.setColor(Color.RED);
+        g.setColor(Color.ORANGE);
         int origine = origineX;
         for(int i = 1; i < LogVaccin.size(); ++i)
         {
@@ -76,6 +76,17 @@ public class PanelGraph extends JPanel {
         {
             g.drawLine(origine+stepX*(i - 1), origineY-LogGel.get(i - 1),
                     origine+stepX*(i), origineY-LogGel.get(i));
+        }
+    }
+    
+    private void paintAutre()
+    {
+        g.setColor(Color.GREEN);
+        int origine = origineX;
+        for(int i = 1; i < LogAutre.size(); ++i)
+        {
+            g.drawLine(origine+stepX*(i - 1), origineY-LogAutre.get(i - 1),
+                    origine+stepX*(i), origineY-LogAutre.get(i));
         }
     }
 
@@ -109,6 +120,11 @@ public class PanelGraph extends JPanel {
         {
             LogTest.add(LogTest.get(LogTest.size() - 1) + stock.getNombreDeStock());
             paintTest();
+        }
+        else if (stock.isAutre())
+        {
+        	LogAutre.add(LogAutre.get(LogAutre.size()-1) + stock.getNombreDeStock());
+        	paintAutre();
         }
         this.updateUI();
     }
