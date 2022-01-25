@@ -400,6 +400,28 @@ public class LiaisonBDD {
 		return retour;
 	}
 	
+	public Boolean checkExist(String nom_objet) 
+	{
+		Connection con = null;
+		PreparedStatement ps = null;
+		Boolean found = false;
+		try
+		{
+			con = DriverManager.getConnection(URL, LOGIN, PASS);
+			ps = con.prepareStatement("Select * From Stock");
+			ResultSet rs=ps.executeQuery();
+			rs.next();
+			// Iterer sur les colonnes et voir si le contenu d'une des colonnes
+			// est égal à nom_objet, si oui on passe trouver a true;
+		} 
+		catch (Exception ee) {
+			ee.printStackTrace();
+		}
+		try {if (ps != null)ps.close();} catch (Exception t) {}
+		try {if (con != null)con.close();} catch (Exception t) {}
+
+		return found;
+	}
 	
 	
 	private static String dateToString()
