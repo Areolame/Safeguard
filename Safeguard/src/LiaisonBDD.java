@@ -1,8 +1,9 @@
 import java.sql.*;
 import java.time.LocalDateTime;
+import java.util.ArrayList;
 import java.util.LinkedHashMap;
 
-import Stock.Stock;
+import Stock.*;
 
 public class LiaisonBDD {
 
@@ -23,13 +24,13 @@ public class LiaisonBDD {
 
 	}
 	
-	public LinkedHashMap<String, Integer> getStocks()
+	public ArrayList<Stock> getStocks()
     {
-        LinkedHashMap<String, Integer> stocks =  new LinkedHashMap<>();
-        stocks.putAll(getStockGel());
-        stocks.putAll(getStockMasque());
-        stocks.putAll(getStockTest());
-        stocks.putAll(getStockVaccin());
+		ArrayList<Stock> stocks =  new ArrayList<Stock>();
+        stocks.addAll(getStockGel());
+        stocks.addAll(getStockMasque());
+        stocks.addAll(getStockTest());
+        stocks.addAll(getStockVaccin());
         return stocks;
     }
 	
@@ -60,9 +61,9 @@ public class LiaisonBDD {
 		return stocks;
 	}
 
-	public LinkedHashMap<String, Integer> getStockGel()
+	public ArrayList<StockGel> getStockGel()
 	{
-		LinkedHashMap<String, Integer> stocks = new LinkedHashMap<>();
+		ArrayList<StockGel> stocks = new ArrayList<>();
 		Connection con = null;
 		PreparedStatement ps = null;
 		try
@@ -72,7 +73,7 @@ public class LiaisonBDD {
 			ResultSet rs=ps.executeQuery();
 			while(rs.next())
 			{
-				stocks.put(rs.getString("nom_gel"), rs.getInt("stock_gel"));
+				stocks.add(new StockGel(rs.getString("nom_gel"), rs.getInt("stock_gel")));
 			}
 		}
 		catch (Exception ee) {
@@ -83,9 +84,9 @@ public class LiaisonBDD {
 		return stocks;
 	}
 
-	public LinkedHashMap<String, Integer> getStockMasque()
+	public ArrayList<StockMasque> getStockMasque()
 	{
-		LinkedHashMap<String, Integer> stocks = new LinkedHashMap<>();
+		ArrayList<StockMasque> stocks = new ArrayList<>();
 		Connection con = null;
 		PreparedStatement ps = null;
 		try
@@ -95,7 +96,7 @@ public class LiaisonBDD {
 			ResultSet rs=ps.executeQuery();
 			while(rs.next())
 			{
-				stocks.put(rs.getString("nom_masque"), rs.getInt("stock_masque"));
+				stocks.add(new StockMasque(rs.getString("nom_masque"), rs.getInt("stock_masque")));
 			}
 		}
 		catch (Exception ee) {
@@ -106,9 +107,9 @@ public class LiaisonBDD {
 		return stocks;
 	}
 
-	public LinkedHashMap<String, Integer> getStockVaccin()
+	public ArrayList<StockVaccin> getStockVaccin()
 	{
-		LinkedHashMap<String, Integer> stocks = new LinkedHashMap<>();
+		ArrayList<StockVaccin> stocks = new ArrayList<>();
 		Connection con = null;
 		PreparedStatement ps = null;
 		try
@@ -118,7 +119,7 @@ public class LiaisonBDD {
 			ResultSet rs=ps.executeQuery();
 			while(rs.next())
 			{
-				stocks.put(rs.getString("nom_vaccin"), rs.getInt("stock_vaccin"));
+				stocks.add(new StockVaccin(rs.getString("nom_vaccin"), rs.getInt("stock_vaccin")));
 			}
 		}
 		catch (Exception ee) {
@@ -129,9 +130,9 @@ public class LiaisonBDD {
 		return stocks;
 	}
 
-	public LinkedHashMap<String, Integer> getStockTest()
+	public ArrayList<StockTest> getStockTest()
 	{
-		LinkedHashMap<String, Integer> stocks = new LinkedHashMap<>();
+		ArrayList<StockTest> stocks = new ArrayList<>();
 		Connection con = null;
 		PreparedStatement ps = null;
 		try
@@ -141,7 +142,7 @@ public class LiaisonBDD {
 			ResultSet rs=ps.executeQuery();
 			while(rs.next())
 			{
-				stocks.put(rs.getString("nom_test"), rs.getInt("stock_test"));
+				stocks.add(new StockTest(rs.getString("nom_test"), rs.getInt("stock_test")));
 			}
 		}
 		catch (Exception ee) {

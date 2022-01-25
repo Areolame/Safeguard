@@ -12,6 +12,11 @@ public class StockMasque extends Stock {
         enumMasque = masque;
     }
 
+    public StockMasque(String masque, int nbStock)
+    {
+        super(masque, nbStock);
+    }
+
 
     public EnumMasque getTypeMasque()
     {

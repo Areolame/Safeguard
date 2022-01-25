@@ -12,6 +12,11 @@ public class StockGel extends Stock {
         enumGel = gel;
     }
 
+    public StockGel(String gel, int nbStock)
+    {
+        super(gel, nbStock);
+    }
+
 
     public EnumGel getTypeGel()
     {

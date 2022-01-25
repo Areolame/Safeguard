@@ -20,6 +20,7 @@ public class PanelModifStock extends JPanel {
 	private ArrayList<JFormattedTextField> fieldList = new ArrayList<JFormattedTextField>();
 	private ArrayList<JComboBox<String>> comboList = new ArrayList<JComboBox<String>>();
 	public static LinkedHashMap<String, Integer> mapValeur = null;
+	public static ArrayList<Stock> listStock = null;
 	public static int nombre_element_table_stock;
 	
 	// Boutons
@@ -42,13 +43,20 @@ public class PanelModifStock extends JPanel {
 		boutonCancel = new JButton("Cancel");
 
 		initTotaux();
+		initPanel(panel1, "Gel");
 
 		// Récupération de l'inventaire dans la BDD
-		mapValeur = Fenetre.liaison.getStocks();
+		ArrayList<StockMasque> stockMasques = Fenetre.liaison.getStockMasque();
+		ArrayList<StockVaccin> stockVaccin = Fenetre.liaison.getStockVaccin();
+		ArrayList<StockTest> stockTest = Fenetre.liaison.getStockTest();
+
+
+		/*
+
 		int length = mapValeur.keySet().toArray().length;
 		String type = TypeStock.getFrom(mapValeur.keySet().toArray()[0].toString());
 		Vector<String> liste = new Vector<String>();
-		for (String key : mapValeur.keySet()) {
+		for (Stock key : listStock) {
 			String tmpType = TypeStock.getFrom(key);
 			addToTotaux(key, mapValeur.get(key));
 			if (key.equals(mapValeur.keySet().toArray()[length-1])) {
@@ -68,7 +76,7 @@ public class PanelModifStock extends JPanel {
 		    type = tmpType;
 			liste.add(key);
 		}
-		
+		*/
 		//ajout des composants sur le container
     	this.add(nomPage);
 		this.add(panel1);
@@ -85,6 +93,24 @@ public class PanelModifStock extends JPanel {
 		this.setBorder(BorderFactory.createEmptyBorder(10,10,10,10));
 
 		
+	}
+
+	private void initPanel(JPanel panel1, String type)
+	{
+		Vector<String> liste = new Vector<>();
+		for(Stock stock : stocks)
+		{
+			liste.add(stock.getName());
+		}
+
+		JLabel tmpLabel1 = new JLabel(type, SwingConstants.CENTER);
+		JComboBox<String> listeType1 = new JComboBox<String>(liste);
+		JFormattedTextField tmpField1 = new JFormattedTextField();
+		panel1.add(tmpLabel1);
+		panel1.add(listeType1);
+		panel1.add(tmpField1);
+		fieldList.add(tmpField1);
+		comboList.add(listeType1);
 	}
 
 	private void initTotaux()

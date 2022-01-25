@@ -11,6 +11,11 @@ public class StockTest extends Stock {
         this.enumTest = test;
     }
 
+    public StockTest(String test, int nbStock)
+    {
+        super(test, nbStock);
+    }
+
 
     public EnumTest getTypeGel()
     {

@@ -21,6 +21,11 @@ public class StockVaccin extends Stock {
         this.dateExpiration = dateExpiration;
     }
 
+    public StockVaccin(String vaccin, int nbStock)
+    {
+        super(vaccin, nbStock);
+    }
+
 
     public EnumVaccin getTypeMasque()
     {
