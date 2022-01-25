@@ -44,6 +44,9 @@ public class Fenetre extends JFrame implements ActionListener {
 	public static PanelModifStock panelModifStock;
 	public static PanelGraph panelGraph;
 	public static PanelUHA panelUHA;
+	public static PanelAjoutStock panelAjoutStock;
+	
+	public static JDialog dialogAjoutStock;
 	
 	public Fenetre() {
 		// on instancie les différentes classes
@@ -52,22 +55,28 @@ public class Fenetre extends JFrame implements ActionListener {
 		messageErreur = new JLabel("");
 		erreurBox.add(messageErreur);
 		erreurBox.setSize(250, 100);
+		dialogAjoutStock = new JDialog(this);
+		dialogAjoutStock.setSize(400,350);
 		
 		// Panel Personne
-		this.panelAjoutPersonne = new PanelAjoutPersonne();
-		this.panelAjoutPersonne.boutonAddPersonne.addActionListener(this);
-		this.panelAjoutPersonne.boutonCancelPersonne.addActionListener(this);
+		panelAjoutPersonne = new PanelAjoutPersonne();
+		panelAjoutPersonne.boutonAddPersonne.addActionListener(this);
+		panelAjoutPersonne.boutonCancelPersonne.addActionListener(this);
 		
-		this.panelModifStock = new PanelModifStock();
-		this.panelModifStock.boutonAdd.addActionListener(this);
-		this.panelModifStock.boutonCancel.addActionListener(this);
+		panelModifStock = new PanelModifStock();
+		panelModifStock.boutonAdd.addActionListener(this);
+		panelModifStock.boutonCancel.addActionListener(this);
 		
-		this.panelStock = new PanelStock();
-		this.panelStock.boutonAdd.addActionListener(this);
+		panelStock = new PanelStock();
+		panelStock.boutonAdd.addActionListener(this);
 		
-		this.panelGraph = new PanelGraph();
+		panelGraph = new PanelGraph();
 		
-		this.panelUHA = new PanelUHA();
+		panelUHA = new PanelUHA();
+		
+		panelAjoutStock = new PanelAjoutStock();
+		panelAjoutStock.boutonAdd.addActionListener(this);
+		dialogAjoutStock.add(panelAjoutStock);
 
 		//on fixe le titre de la fenêtre
 		this.setTitle("Covid-Statistics");
@@ -85,11 +94,11 @@ public class Fenetre extends JFrame implements ActionListener {
 		panelPrincipal.setLayout(layoutPrincipal);
 		
 		// Ajout des panels dans le panel principal
-		panelPrincipal.add(this.panelAjoutPersonne);
-		panelPrincipal.add(this.panelStock);
-		panelPrincipal.add(this.panelModifStock);
-		panelPrincipal.add(this.panelGraph);
-		panelPrincipal.add(this.panelUHA);
+		panelPrincipal.add(panelAjoutPersonne);
+		panelPrincipal.add(panelStock);
+		panelPrincipal.add(panelModifStock);
+		panelPrincipal.add(panelGraph);
+		panelPrincipal.add(panelUHA);
 		
 		this.setContentPane(panelPrincipal);
 
@@ -101,20 +110,23 @@ public class Fenetre extends JFrame implements ActionListener {
 	public void actionPerformed(ActionEvent ae) {
 		//int retour; // code de retour si besoin
 		try {
-			if(ae.getSource()==this.panelAjoutPersonne.boutonAddPersonne) {
-				this.panelAjoutPersonne.ajouterPersonne();
+			if(ae.getSource()==panelAjoutPersonne.boutonAddPersonne) {
+				panelAjoutPersonne.ajouterPersonne();
 			}
-			else if(ae.getSource()==this.panelAjoutPersonne.boutonCancelPersonne) {
-				this.panelAjoutPersonne.cancel();
+			else if(ae.getSource()==panelAjoutPersonne.boutonCancelPersonne) {
+				panelAjoutPersonne.cancel();
 			}
-			else if (ae.getSource()==this.panelStock.boutonAdd) {
-				this.panelStock.add();
+			else if (ae.getSource()==panelStock.boutonAdd) {
+				panelStock.add();
 			}
-			else if (ae.getSource()==this.panelModifStock.boutonAdd) {
-				this.panelModifStock.add();
+			else if (ae.getSource()==panelModifStock.boutonAdd) {
+				panelModifStock.add();
 			}
-			else if (ae.getSource()==this.panelModifStock.boutonCancel) {
-				this.panelModifStock.cancel();
+			else if (ae.getSource()==panelModifStock.boutonCancel) {
+				panelModifStock.cancel();
+			}
+			else if (ae.getSource()==panelAjoutStock.boutonAdd) {
+				panelAjoutStock.add();
 			}
 		}
 		catch (Exception e) {

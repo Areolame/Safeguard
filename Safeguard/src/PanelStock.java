@@ -57,7 +57,7 @@ public class PanelStock extends JPanel {
 	}
 	
 	public void add() {
-		
+		Fenetre.dialogAjoutStock.setVisible(true);
 	}
 	
 }
