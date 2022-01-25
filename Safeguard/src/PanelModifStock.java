@@ -93,11 +93,12 @@ public class PanelModifStock extends JPanel {
 			if (!str1.isBlank()) {
 				String nom_objet = (String)comboList.get(i).getSelectedItem();
 				Integer nombre_stock = Integer.parseInt(str1);
-				if (i == 0) Fenetre.liaison.ajouterGel(new StockGel(EnumGel.from(nom_objet), nombre_stock));
-				if (i == 1) Fenetre.liaison.ajouterMasque(new StockMasque(EnumMasque.from(nom_objet), nombre_stock));
-				if (i == 2) Fenetre.liaison.ajouterVaccin(new StockVaccin(EnumVaccin.from(nom_objet), nombre_stock));
-				if (i == 3) Fenetre.liaison.ajouterTest(new StockTest(EnumTest.from(nom_objet), nombre_stock));
-				Fenetre.panelStock.mapLabel.get(nom_objet).setText(String.valueOf(nombre_stock));
+				Integer nombre_total = null;
+				if (i == 0) nombre_total = Fenetre.liaison.ajouterGel(new StockGel(EnumGel.from(nom_objet), nombre_stock));
+				if (i == 1) nombre_total = Fenetre.liaison.ajouterMasque(new StockMasque(EnumMasque.from(nom_objet), nombre_stock));
+				if (i == 2) nombre_total = Fenetre.liaison.ajouterVaccin(new StockVaccin(EnumVaccin.from(nom_objet), nombre_stock));
+				if (i == 3) nombre_total = Fenetre.liaison.ajouterTest(new StockTest(EnumTest.from(nom_objet), nombre_stock));
+				Fenetre.panelStock.mapLabel.get(nom_objet).setText(String.valueOf(nombre_total));
 			}
 		}
 	}

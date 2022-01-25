@@ -113,6 +113,8 @@ public class Fenetre extends JFrame implements ActionListener {
 		}
 		catch (Exception e) {
 			System.out.println(e);
+			messageErreur.setText("Erreur: " + e);
+			erreurBox.setVisible(true);
 		}
 		
 	}
