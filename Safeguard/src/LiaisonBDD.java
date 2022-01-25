@@ -410,9 +410,16 @@ public class LiaisonBDD {
 			con = DriverManager.getConnection(URL, LOGIN, PASS);
 			ps = con.prepareStatement("Select * From Stock");
 			ResultSet rs=ps.executeQuery();
-			rs.next();
-			// Iterer sur les colonnes et voir si le contenu d'une des colonnes
-			// est égal à nom_objet, si oui on passe trouver a true;
+			if (rs.next()) {
+				ResultSetMetaData meta = rs.getMetaData();
+				int nb_colonne = meta.getColumnCount();
+				for (int i=1; i<=nb_colonne; i++) {
+					String tmpStr = rs.getString(i);
+					if (tmpStr.equals(nom_objet)) {
+						found = true;
+					}
+				}
+			}
 		} 
 		catch (Exception ee) {
 			ee.printStackTrace();
@@ -421,6 +428,52 @@ public class LiaisonBDD {
 		try {if (con != null)con.close();} catch (Exception t) {}
 
 		return found;
+	}
+	
+	public int tailleTableStock() {
+		Connection con = null;
+		PreparedStatement ps = null;
+		try
+		{
+			con = DriverManager.getConnection(URL, LOGIN, PASS);
+			ps = con.prepareStatement("Select nombre_element From Stock");
+			ResultSet rs=ps.executeQuery();
+			rs.next();
+			return rs.getInt("nombre_element");
+		} 
+		catch (Exception ee) {
+			ee.printStackTrace();
+		}
+		try {if (ps != null)ps.close();} catch (Exception t) {}
+		try {if (con != null)con.close();} catch (Exception t) {}
+
+		return 0;
+	}
+	
+	public void ajoutColonneStock(int numero, String nom_champ, int stock_champ) {
+		Connection con = null;
+		PreparedStatement ps = null;
+		try
+		{
+			con = DriverManager.getConnection(URL, LOGIN, PASS);
+			ps = con.prepareStatement("ALTER TABLE stock ADD champ" + numero + " VARCHAR(100) NOT NULL, ADD stock" + numero + " INT NOT NULL");
+
+			//Exï¿½cution de la requï¿½te
+			ps.executeUpdate();
+			
+			ps = con.prepareStatement("UPDATE stock SET nombre_element = ?, champ" + numero + " = ?, stock" + numero + " = ?");
+			ps.setInt(1, numero);
+			ps.setString(2, nom_champ);
+			ps.setInt(3, stock_champ);
+
+			//Exï¿½cution de la requï¿½te
+			ps.executeUpdate();
+		} 
+		catch (Exception ee) {
+			ee.printStackTrace();
+		}
+		try {if (ps != null)ps.close();} catch (Exception t) {}
+		try {if (con != null)con.close();} catch (Exception t) {}
 	}
 	
 	

@@ -117,6 +117,11 @@ public class Fenetre extends JFrame implements ActionListener {
 		}
 		
 	}
+	
+	public static void messageErreur(String str) {
+		messageErreur.setText("Erreur: " + str);
+		erreurBox.setVisible(true);
+	}
 
 	
 	public static void main(String[] args) {

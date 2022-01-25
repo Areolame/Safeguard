@@ -18,6 +18,7 @@ public class PanelAjoutStock extends JPanel {
 	private JComboBox<String> combo_liste;
 	private JFormattedTextField nom_champ;
 	private JFormattedTextField stock_champ;
+	public static int nombre_element_table_stock;
 	
 	public PanelAjoutStock() {
 		
@@ -32,6 +33,8 @@ public class PanelAjoutStock extends JPanel {
 		listeType.add("Test");
 		listeType.add("Vaccin");
 		listeType.add("Autre");
+		
+		nombre_element_table_stock = Fenetre.liaison.tailleTableStock();
 		
         JPanel panel1 = new JPanel();
         GridLayout layoutPanel1 = new GridLayout(0,3);
@@ -67,6 +70,24 @@ public class PanelAjoutStock extends JPanel {
 	}
 	
 	public void add() {
-		Fenetre.dialogAjoutStock.setVisible(false);
+		String nom = nom_champ.getText();
+		String stock = stock_champ.getText();
+		if (!nom.isBlank()&&!stock.isBlank()) {
+			String type = (String)combo_liste.getSelectedItem();
+			if (type.equals("Autre")) {
+				Boolean exist = Fenetre.liaison.checkExist(nom);
+				if (exist) {
+					Fenetre.messageErreur("Ce champ existe déjà.");
+				}
+				else {
+					nombre_element_table_stock++;
+					Fenetre.liaison.ajoutColonneStock(nombre_element_table_stock, nom, Integer.parseInt(stock));
+				}
+			}
+			else {
+				
+			}
+			Fenetre.dialogAjoutStock.setVisible(false);
+		}
 	}
 }
