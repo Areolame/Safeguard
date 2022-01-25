@@ -11,15 +11,16 @@ import java.util.ArrayList;
 public class PanelGraph extends JPanel {
 
 	private static final long serialVersionUID = -2913866235715235591L;
-	private JLabel labelGraph;
+    private JLabel labelGraph;
     private int origineY = getHeight()/2+150, origineX = getWidth()/2+20;
     private int stepX = 25;
     private Graphics g;
 
-    public static ArrayList<StockMasque> LogMasque = new ArrayList<>();
-    public static ArrayList<StockVaccin> LogVaccin = new ArrayList<>();
-    public static ArrayList<StockGel> LogGel = new ArrayList<>();
-    public static ArrayList<StockTest> LogTest = new ArrayList<>();
+    public static ArrayList<Integer> LogMasque = new ArrayList<>();
+    public static ArrayList<Integer> LogVaccin = new ArrayList<>();
+    public static ArrayList<Integer> LogGel = new ArrayList<>();
+    public static ArrayList<Integer> LogTest = new ArrayList<>();
+    public static ArrayList<Integer> LogAutre = new ArrayList<>();
 
     @Override
     protected void paintComponent(Graphics g)
@@ -40,8 +41,8 @@ public class PanelGraph extends JPanel {
         int origine = origineX;
         for(int i = 1; i < LogMasque.size(); ++i)
         {
-            g.drawLine(origine+stepX*(i - 1), origineY-LogMasque.get(i - 1).getNombreDeStock(),
-                    origine+stepX*(i), origineY-LogMasque.get(i).getNombreDeStock());
+            g.drawLine(origine+stepX*(i - 1), origineY-LogMasque.get(i - 1),
+                    origine+stepX*(i), origineY-LogMasque.get(i));
         }
     }
 
@@ -51,8 +52,8 @@ public class PanelGraph extends JPanel {
         int origine = origineX;
         for(int i = 1; i < LogTest.size(); ++i)
         {
-            g.drawLine(origine+stepX*(i - 1), origineY-LogTest.get(i - 1).getNombreDeStock(),
-                    origine+stepX*(i), origineY-LogTest.get(i).getNombreDeStock());
+            g.drawLine(origine+stepX*(i - 1), origineY-LogTest.get(i - 1),
+                    origine+stepX*(i), origineY-LogTest.get(i));
         }
     }
 
@@ -62,8 +63,8 @@ public class PanelGraph extends JPanel {
         int origine = origineX;
         for(int i = 1; i < LogVaccin.size(); ++i)
         {
-            g.drawLine(origine+stepX*(i - 1), origineY-LogVaccin.get(i - 1).getNombreDeStock(),
-                    origine+stepX*(i), origineY-LogVaccin.get(i).getNombreDeStock());
+            g.drawLine(origine+stepX*(i - 1), origineY-LogVaccin.get(i - 1),
+                    origine+stepX*(i), origineY-LogVaccin.get(i));
         }
     }
 
@@ -73,8 +74,8 @@ public class PanelGraph extends JPanel {
         int origine = origineX;
         for(int i = 1; i < LogGel.size(); ++i)
         {
-            g.drawLine(origine+stepX*(i - 1), origineY-LogGel.get(i - 1).getNombreDeStock(),
-                    origine+stepX*(i), origineY-LogGel.get(i).getNombreDeStock());
+            g.drawLine(origine+stepX*(i - 1), origineY-LogGel.get(i - 1),
+                    origine+stepX*(i), origineY-LogGel.get(i));
         }
     }
 
@@ -91,22 +92,22 @@ public class PanelGraph extends JPanel {
     {
         if(stock.isVaccin())
         {
-          LogVaccin.add((StockVaccin) stock);
+          LogVaccin.add(stock.getNombreDeStock());
           paintVaccin();
         }
         else if(stock.isGel())
         {
-        	LogGel.add((StockGel) stock);
+        	LogGel.add(stock.getNombreDeStock());
             paintGel();
         }
         else if(stock.isMasque())
         {
-            LogMasque.add((StockMasque) stock);
+            LogMasque.add(stock.getNombreDeStock());
             paintMasque();
         }
         else if(stock.isTest())
         {
-            LogTest.add((StockTest) stock);
+            LogTest.add(stock.getNombreDeStock());
             paintTest();
         }
         this.updateUI();

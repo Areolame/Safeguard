@@ -40,7 +40,9 @@ public class PanelModifStock extends JPanel {
         JLabel nomPage = new JLabel("Inventory Management", SwingConstants.CENTER);
 		boutonAdd = new JButton("Add");
 		boutonCancel = new JButton("Cancel");
-		
+
+		initTotaux();
+
 		// Récupération de l'inventaire dans la BDD
 		mapValeur = Fenetre.liaison.getStocks();
 		int length = mapValeur.keySet().toArray().length;
@@ -48,6 +50,7 @@ public class PanelModifStock extends JPanel {
 		Vector<String> liste = new Vector<String>();
 		for (String key : mapValeur.keySet()) {
 			String tmpType = TypeStock.getFrom(key);
+			addToTotaux(key, mapValeur.get(key));
 			if (key.equals(mapValeur.keySet().toArray()[length-1])) {
 				liste.add(key);
 			}
@@ -82,6 +85,39 @@ public class PanelModifStock extends JPanel {
 		this.setBorder(BorderFactory.createEmptyBorder(10,10,10,10));
 
 		
+	}
+
+	private void initTotaux()
+	{
+		PanelGraph.LogGel.add(0);
+		PanelGraph.LogVaccin.add(0);
+		PanelGraph.LogMasque.add(0);
+		PanelGraph.LogTest.add(0);
+		PanelGraph.LogAutre.add(0);
+	}
+
+	private void addToTotaux(String type, int nbStock)
+	{
+		if(type.equalsIgnoreCase("Gel"))
+		{
+			PanelGraph.LogGel.set(0, PanelGraph.LogGel.get(0)+nbStock);
+		}
+		else if(type.equalsIgnoreCase( "Vaccin"))
+		{
+			PanelGraph.LogVaccin.set(0, PanelGraph.LogVaccin.get(0)+nbStock);
+		}
+		else if(type.equalsIgnoreCase( "Test"))
+		{
+			PanelGraph.LogTest.set(0, PanelGraph.LogTest.get(0)+nbStock);
+		}
+		else if(type.equalsIgnoreCase( "Masque"))
+		{
+			PanelGraph.LogMasque.set(0, PanelGraph.LogMasque.get(0)+nbStock);
+		}
+		else
+		{
+			PanelGraph.LogAutre.set(0, PanelGraph.LogAutre.get(0)+nbStock);
+		}
 	}
 	
 	public void add() {
