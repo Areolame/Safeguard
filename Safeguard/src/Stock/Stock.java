@@ -42,6 +42,11 @@ public abstract class Stock {
         return false;
     }
 
+    public boolean isTest()
+    {
+        return false;
+    }
+
 	public String getName() 
 	{
 		return nom;

@@ -1,13 +1,11 @@
-import Stock.Enums.EnumMasque;
-import Stock.Enums.EnumVaccin;
 import Stock.Stock;
 import Stock.StockGel;
 import Stock.StockMasque;
 import Stock.StockVaccin;
+import Stock.StockTest;
 
 import javax.swing.*;
 import java.awt.*;
-import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 
 public class PanelGraph extends JPanel {
@@ -20,20 +18,22 @@ public class PanelGraph extends JPanel {
     public static ArrayList<StockMasque> LogMasque = new ArrayList<>();
     public static ArrayList<StockVaccin> LogVaccin = new ArrayList<>();
     public static ArrayList<StockGel> LogGel = new ArrayList<>();
+    public static ArrayList<StockTest> LogTest = new ArrayList<>();
 
     @Override
     protected void paintComponent(Graphics g)
     {
         super.paintComponent(g);
         this.g = g;
-        paintMasque(g);
-        paintVaccin(g);
-        paintGel(g);
+        paintMasque();
+        paintVaccin();
+        paintGel();
+        paintTest();
 
-        paintOrigine(g);
+        paintOrigine();
     }
 
-    private void paintMasque(Graphics g)
+    private void paintMasque()
     {
         g.setColor(Color.BLUE);
         int origine = origineX;
@@ -44,19 +44,29 @@ public class PanelGraph extends JPanel {
         }
     }
 
-    private void paintVaccin(Graphics g)
+    private void paintTest()
+    {
+        g.setColor(Color.RED);
+        int origine = origineX;
+        for(int i = 1; i < LogTest.size(); ++i)
+        {
+            g.drawLine(origine+stepX*(i - 1), origineY-LogTest.get(i - 1).getNombreDeStock(),
+                    origine+stepX*(i), origineY-LogTest.get(i).getNombreDeStock());
+        }
+    }
+
+    private void paintVaccin()
     {
         g.setColor(Color.RED);
         int origine = origineX;
         for(int i = 1; i < LogVaccin.size(); ++i)
         {
-            System.out.println( i < LogVaccin.size());
             g.drawLine(origine+stepX*(i - 1), origineY-LogVaccin.get(i - 1).getNombreDeStock(),
                     origine+stepX*(i), origineY-LogVaccin.get(i).getNombreDeStock());
         }
     }
 
-    private void paintGel(Graphics g)
+    private void paintGel()
     {
         g.setColor(Color.CYAN);
         int origine = origineX;
@@ -67,7 +77,7 @@ public class PanelGraph extends JPanel {
         }
     }
 
-    private void paintOrigine(Graphics g)
+    private void paintOrigine()
     {
         g.setColor(Color.BLACK);
         g.drawString("Quantité", origineX-10, origineY-275);
@@ -81,17 +91,22 @@ public class PanelGraph extends JPanel {
         if(stock.isVaccin())
         {
           LogVaccin.add((StockVaccin) stock);
-          paintVaccin(g);
+          paintVaccin();
         }
         else if(stock.isGel())
         {
             LogGel.add((StockGel) stock);
-            paintGel(g);
+            paintGel();
         }
         else if(stock.isMasque())
         {
             LogMasque.add((StockMasque) stock);
-            paintMasque(g);
+            paintMasque();
+        }
+        else if(stock.isTest())
+        {
+            LogTest.add((StockTest) stock);
+            paintTest();
         }
     }
 

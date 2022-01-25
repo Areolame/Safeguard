@@ -3,7 +3,8 @@ package Stock;
 public enum TypeStock {
     Vaccin,
     Masque,
-    Gel;
+    Gel,
+    Test;
 
 
     public int getID()
@@ -16,6 +17,8 @@ public enum TypeStock {
                 return 1;
             case Vaccin:
                 return 2;
+            case Test:
+                return 3;
         }
         return -1;
     }
