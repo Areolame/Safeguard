@@ -10,6 +10,7 @@ public class PanelStock extends JPanel {
 	// Liste des valeurs de stocks
 	public static ArrayList<JLabel> labelList = new ArrayList<JLabel>();
 	public static LinkedHashMap<String, JLabel> mapLabel = new LinkedHashMap<String, JLabel>();
+	public static int nombre_element_table_stock;
 	
 	// Boutons
 	public JButton boutonAdd;

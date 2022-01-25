@@ -20,6 +20,7 @@ public class PanelModifStock extends JPanel {
 	private ArrayList<JFormattedTextField> fieldList = new ArrayList<JFormattedTextField>();
 	private ArrayList<JComboBox<String>> comboList = new ArrayList<JComboBox<String>>();
 	public static LinkedHashMap<String, Integer> mapValeur = null;
+	public static int nombre_element_table_stock;
 	
 	// Boutons
 	public JButton boutonAdd;

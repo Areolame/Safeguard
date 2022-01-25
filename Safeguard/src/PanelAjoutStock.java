@@ -75,7 +75,7 @@ public class PanelAjoutStock extends JPanel {
 		if (!nom.isBlank()&&!stock.isBlank()) {
 			String type = (String)combo_liste.getSelectedItem();
 			if (type.equals("Autre")) {
-				Boolean exist = Fenetre.liaison.checkExist(nom);
+				Boolean exist = Fenetre.liaison.checkExistStock(nom);
 				if (exist) {
 					Fenetre.messageErreur("Ce champ existe déjà.");
 				}
@@ -85,7 +85,13 @@ public class PanelAjoutStock extends JPanel {
 				}
 			}
 			else {
-				
+				Boolean exist = Fenetre.liaison.checkExist(type, nom);
+				if (exist) {
+					Fenetre.messageErreur("Ce champ existe déjà.");
+				}
+				else {
+					Fenetre.liaison.ajoutLigneTable(type, nom, Integer.parseInt(stock));
+				}
 			}
 			Fenetre.dialogAjoutStock.setVisible(false);
 		}

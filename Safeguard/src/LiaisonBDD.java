@@ -32,6 +32,33 @@ public class LiaisonBDD {
         stocks.putAll(getStockVaccin());
         return stocks;
     }
+	
+	public LinkedHashMap<String, Integer> getStockStock() {
+		LinkedHashMap<String, Integer> stocks = new LinkedHashMap<>();
+		Connection con = null;
+		PreparedStatement ps = null;
+		try
+		{
+			con = DriverManager.getConnection(URL, LOGIN, PASS);
+			ps = con.prepareStatement("Select * From Stock");
+			ResultSet rs=ps.executeQuery();
+			if (rs.next()) {
+				ResultSetMetaData meta = rs.getMetaData();
+				int nb_colonne = meta.getColumnCount();
+				for (int i=2; i<=nb_colonne; i+=2) {
+					String tmpStr = rs.getString(i);
+					int tmpInt = rs.getInt(i+1);
+					stocks.put(tmpStr,tmpInt);
+				}
+			}
+		}
+		catch (Exception ee) {
+			ee.printStackTrace();
+		}
+		try {if (ps != null)ps.close();} catch (Exception t) {}
+		try {if (con != null)con.close();} catch (Exception t) {}
+		return stocks;
+	}
 
 	public LinkedHashMap<String, Integer> getStockGel()
 	{
@@ -321,7 +348,7 @@ public class LiaisonBDD {
 		try {
 			//tentative de connexion
 			con = DriverManager.getConnection(URL, LOGIN, PASS);
-			ps = con.prepareStatement("UPDATE Vaccin SET stock_vaccin = ?, date_expiration = ? where nom_vaccin = ?");
+			ps = con.prepareStatement("UPDATE Vaccin SET stock_vaccin = ?, date_reception = ? where nom_vaccin = ?");
 			total = getVaccin(stock) + stock.getNombreDeStock();
 			ps.setInt(1, total);
 			ps.setDate(2, java.sql.Date.valueOf(LocalDateTime.now().toLocalDate()));
@@ -400,7 +427,32 @@ public class LiaisonBDD {
 		return retour;
 	}
 	
-	public Boolean checkExist(String nom_objet) 
+	public Boolean checkExist(String nom_table, String nom_objet) {
+		Connection con = null;
+		PreparedStatement ps = null;
+		Boolean found = false;
+		try
+		{
+			con = DriverManager.getConnection(URL, LOGIN, PASS);
+			ps = con.prepareStatement("Select nom_test From " + nom_table);
+			ResultSet rs=ps.executeQuery();
+			while (rs.next()) {
+				String tmpStr = rs.getString("nom_test");
+				if (tmpStr.equals(nom_objet)) {
+					found = true;
+				}
+			}
+		} 
+		catch (Exception ee) {
+			ee.printStackTrace();
+		}
+		try {if (ps != null)ps.close();} catch (Exception t) {}
+		try {if (con != null)con.close();} catch (Exception t) {}
+
+		return found;
+	}
+	
+	public Boolean checkExistStock(String nom_objet) 
 	{
 		Connection con = null;
 		PreparedStatement ps = null;
@@ -448,6 +500,28 @@ public class LiaisonBDD {
 		try {if (con != null)con.close();} catch (Exception t) {}
 
 		return 0;
+	}
+	
+	public void ajoutLigneTable(String nom_table, String nom_champ, int stock_champ) {
+		Connection con = null;
+		PreparedStatement ps = null;
+		String lower_nom_table = nom_table.toLowerCase();
+		try
+		{
+			con = DriverManager.getConnection(URL, LOGIN, PASS);
+			ps = con.prepareStatement("INSERT INTO " + nom_table + " (nom_" + lower_nom_table + ",stock_" + lower_nom_table + ", date_reception) VALUES (?, ?, ?)");
+			ps.setString(1, nom_champ);
+			ps.setInt(2, stock_champ);
+			ps.setDate(3, java.sql.Date.valueOf(LocalDateTime.now().toLocalDate()));
+
+			//Ex�cution de la requ�te
+			ps.executeUpdate();
+		} 
+		catch (Exception ee) {
+			ee.printStackTrace();
+		}
+		try {if (ps != null)ps.close();} catch (Exception t) {}
+		try {if (con != null)con.close();} catch (Exception t) {}
 	}
 	
 	public void ajoutColonneStock(int numero, String nom_champ, int stock_champ) {

@@ -8,7 +8,7 @@ CREATE TABLE IF NOT EXISTS Stock (
 CREATE TABLE IF NOT EXISTS Vaccin (
 	nom_vaccin varchar(100) PRIMARY KEY NOT NULL,
 	stock_vaccin INT NOT NULL,
-	date_expiration date NOT NULL
+	date_reception date NOT NULL
 );
 
 CREATE TABLE IF NOT EXISTS Masque (
