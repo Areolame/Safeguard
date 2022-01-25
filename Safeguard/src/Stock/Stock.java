@@ -47,6 +47,11 @@ public abstract class Stock {
         return false;
     }
 
+    public boolean isAutre()
+    {
+        return false;
+    }
+
 	public String getName() 
 	{
 		return nom;
