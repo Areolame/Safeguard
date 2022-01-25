@@ -1,7 +1,7 @@
 import java.sql.*;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
-import java.util.HashMap;
+import java.util.LinkedHashMap;
 
 import Stock.Stock;
 
@@ -23,10 +23,20 @@ public class LiaisonBDD {
 		}
 
 	}
+	
+	public LinkedHashMap<String, Integer> getStocks()
+    {
+        LinkedHashMap<String, Integer> stocks =  new LinkedHashMap<>();
+        stocks.putAll(getStockGel());
+        stocks.putAll(getStockMasque());
+        stocks.putAll(getStockTest());
+        stocks.putAll(getStockVaccin());
+        return stocks;
+    }
 
-	public HashMap<String, Integer> getStockGel()
+	public LinkedHashMap<String, Integer> getStockGel()
 	{
-		HashMap<String, Integer> stocks = new HashMap<>();
+		LinkedHashMap<String, Integer> stocks = new LinkedHashMap<>();
 		Connection con = null;
 		PreparedStatement ps = null;
 		try
@@ -47,9 +57,9 @@ public class LiaisonBDD {
 		return stocks;
 	}
 
-	public HashMap<String, Integer> getStockMasque()
+	public LinkedHashMap<String, Integer> getStockMasque()
 	{
-		HashMap<String, Integer> stocks = new HashMap<>();
+		LinkedHashMap<String, Integer> stocks = new LinkedHashMap<>();
 		Connection con = null;
 		PreparedStatement ps = null;
 		try
@@ -70,9 +80,9 @@ public class LiaisonBDD {
 		return stocks;
 	}
 
-	public HashMap<String, Integer> getStockVaccin()
+	public LinkedHashMap<String, Integer> getStockVaccin()
 	{
-		HashMap<String, Integer> stocks = new HashMap<>();
+		LinkedHashMap<String, Integer> stocks = new LinkedHashMap<>();
 		Connection con = null;
 		PreparedStatement ps = null;
 		try
@@ -93,9 +103,9 @@ public class LiaisonBDD {
 		return stocks;
 	}
 
-	public HashMap<String, Integer> getStockTest()
+	public LinkedHashMap<String, Integer> getStockTest()
 	{
-		HashMap<String, Integer> stocks = new HashMap<>();
+		LinkedHashMap<String, Integer> stocks = new LinkedHashMap<>();
 		Connection con = null;
 		PreparedStatement ps = null;
 		try
@@ -310,7 +320,7 @@ public class LiaisonBDD {
 		try {
 			//tentative de connexion
 			con = DriverManager.getConnection(URL, LOGIN, PASS);
-			ps = con.prepareStatement("UPDATE Vaccin SET stock_vaccin = ?, date_reception = ? where nom_vaccin = ?");
+			ps = con.prepareStatement("UPDATE Vaccin SET stock_vaccin = ?, date_expiration = ? where nom_vaccin = ?");
 			ps.setInt(1, getVaccin(stock) + stock.getNombreDeStock());
 			ps.setDate(2, java.sql.Date.valueOf(LocalDateTime.now().toLocalDate()));
 			ps.setString(3, stock.getName());

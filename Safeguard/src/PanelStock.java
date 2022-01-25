@@ -3,17 +3,18 @@ import java.awt.event.ActionEvent;
 import java.text.SimpleDateFormat;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
-import java.util.HashMap;
+import java.util.LinkedHashMap;
+import java.util.Vector;
 
-import javax.swing.BorderFactory;
-import javax.swing.JButton;
-import javax.swing.JFormattedTextField;
-import javax.swing.JLabel;
-import javax.swing.JPanel;
-import javax.swing.JTextField;
 import javax.swing.*;
 
+import Stock.TypeStock;
+
 public class PanelStock extends JPanel {
+	
+	// Liste des valeurs de stocks
+	public static ArrayList<JLabel> labelList = new ArrayList<JLabel>();
+	public static LinkedHashMap<String, JLabel> mapLabel = new LinkedHashMap<String, JLabel>();
 	
 	// Boutons
 	public JButton boutonAdd;
@@ -32,19 +33,15 @@ public class PanelStock extends JPanel {
 		boutonAdd = new JButton("Add");
 		
 		// Récupération de l'inventaire dans la BDD
-		HashMap<String, Integer> map = null;
-		for (int i=0; i<4; i++) {
-			if (i==0) map = Fenetre.liaison.getStockGel();
-			else if (i==1) map = Fenetre.liaison.getStockMasque();
-			else if (i==2) map = Fenetre.liaison.getStockVaccin();
-			else if (i==3) map = Fenetre.liaison.getStockTest();
-			for (String key : map.keySet()) {
-			    String value = Integer.toString(map.get(key));
-			    JLabel tmpLabel1 = new JLabel(key, SwingConstants.CENTER);
-			    JLabel tmpLabel2 = new JLabel(value, SwingConstants.CENTER);
-			    panel1.add(tmpLabel1);
-			    panel1.add(tmpLabel2);
-			}
+		
+		for (String key : Fenetre.panelModifStock.mapValeur.keySet()) {
+			String value = Integer.toString(Fenetre.panelModifStock.mapValeur.get(key));
+		    JLabel tmpLabel1 = new JLabel(key, SwingConstants.CENTER);
+		    JLabel tmpLabel2 = new JLabel(value, SwingConstants.CENTER);
+		    labelList.add(tmpLabel2);
+		    panel1.add(tmpLabel1);
+		    panel1.add(tmpLabel2);
+			mapLabel.put(key, tmpLabel2);
 		}
 		
 		//ajout des composants sur le container

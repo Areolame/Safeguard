@@ -3,7 +3,7 @@ import java.awt.event.ActionEvent;
 import java.text.SimpleDateFormat;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
-import java.util.HashMap;
+import java.util.LinkedHashMap;
 import java.util.Vector;
 
 import javax.swing.BorderFactory;
@@ -17,11 +17,13 @@ import Stock.*;
 import Stock.Enums.*;
 
 import javax.swing.*;
+import Stock.*;
 
 public class PanelModifStock extends JPanel {
 	
 	private ArrayList<JFormattedTextField> fieldList = new ArrayList<JFormattedTextField>();
 	private ArrayList<JComboBox<String>> comboList = new ArrayList<JComboBox<String>>();
+	public static LinkedHashMap<String, Integer> mapValeur = null;
 	
 	// Boutons
 	public JButton boutonAdd;
@@ -43,37 +45,28 @@ public class PanelModifStock extends JPanel {
 		boutonCancel = new JButton("Cancel");
 		
 		// Récupération de l'inventaire dans la BDD
-		HashMap<String, Integer> map = null;
-		for (int i=0; i<4; i++) {
-			String type = "";
-			if (i==0) { 
-				map = Fenetre.liaison.getStockGel();
-				type = "Gel";
+		mapValeur = Fenetre.liaison.getStocks();
+		int length = mapValeur.keySet().toArray().length;
+		String type = TypeStock.getFrom(mapValeur.keySet().toArray()[0].toString());
+		Vector<String> liste = new Vector<String>();
+		for (String key : mapValeur.keySet()) {
+			String tmpType = TypeStock.getFrom(key);
+			if (key.equals(mapValeur.keySet().toArray()[length-1])) {
+				liste.add(key);
 			}
-			else if (i==1) {
-				map = Fenetre.liaison.getStockMasque();
-				type = "Masque";
-			}
-			else if (i==2) {
-				map = Fenetre.liaison.getStockVaccin();
-				type = "Vaccin";
-			}
-			else if (i==3) {
-				map = Fenetre.liaison.getStockTest();
-				type = "Test";
-			}
-			Vector<String> liste = new Vector<String>();
-			for (String key : map.keySet()) {
-			    liste.add(key);
-			}
-			JLabel tmpLabel1 = new JLabel(type, SwingConstants.CENTER);
-		    JComboBox<String> listeType1 = new JComboBox<String>(liste);
-		    JFormattedTextField tmpField1 = new JFormattedTextField();
-		    panel1.add(tmpLabel1);
-		    panel1.add(listeType1);
-		    panel1.add(tmpField1);
-		    fieldList.add(tmpField1);
-		    comboList.add(listeType1);
+		    if (!tmpType.equalsIgnoreCase(type)||key.equals(mapValeur.keySet().toArray()[length-1])) {
+		    	JLabel tmpLabel1 = new JLabel(type, SwingConstants.CENTER);
+			    JComboBox<String> listeType1 = new JComboBox<String>(liste);
+			    JFormattedTextField tmpField1 = new JFormattedTextField();
+			    liste = new Vector<String>();
+			    panel1.add(tmpLabel1);
+			    panel1.add(listeType1);
+			    panel1.add(tmpField1);
+			    fieldList.add(tmpField1);
+			    comboList.add(listeType1);
+		    }
+		    type = tmpType;
+			liste.add(key);
 		}
 		
 		//ajout des composants sur le container
@@ -98,10 +91,13 @@ public class PanelModifStock extends JPanel {
 		for (int i=0; i < fieldList.size(); i++) {
 			String str1 = fieldList.get(i).getText();
 			if (!str1.isBlank()) {
-				if (i == 0) Fenetre.liaison.ajouterGel(new StockGel(EnumGel.from((String)comboList.get(i).getSelectedItem()), Integer.parseInt(str1)));
-				if (i == 1) Fenetre.liaison.ajouterMasque(new StockMasque(EnumMasque.from((String)comboList.get(i).getSelectedItem()), Integer.parseInt(str1)));
-				if (i == 2) Fenetre.liaison.ajouterVaccin(new StockVaccin(EnumVaccin.from((String)comboList.get(i).getSelectedItem()), Integer.parseInt(str1)));
-				if (i == 3) Fenetre.liaison.ajouterTest(new StockTest(EnumTest.from((String)comboList.get(i).getSelectedItem()), Integer.parseInt(str1)));
+				String nom_objet = (String)comboList.get(i).getSelectedItem();
+				Integer nombre_stock = Integer.parseInt(str1);
+				if (i == 0) Fenetre.liaison.ajouterGel(new StockGel(EnumGel.from(nom_objet), nombre_stock));
+				if (i == 1) Fenetre.liaison.ajouterMasque(new StockMasque(EnumMasque.from(nom_objet), nombre_stock));
+				if (i == 2) Fenetre.liaison.ajouterVaccin(new StockVaccin(EnumVaccin.from(nom_objet), nombre_stock));
+				if (i == 3) Fenetre.liaison.ajouterTest(new StockTest(EnumTest.from(nom_objet), nombre_stock));
+				Fenetre.panelStock.mapLabel.get(nom_objet).setText(String.valueOf(nombre_stock));
 			}
 		}
 	}

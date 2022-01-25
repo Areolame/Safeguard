@@ -36,9 +36,11 @@ public class Fenetre extends JFrame implements ActionListener {
 	public static JLabel messageErreur;
 	
 	// Différents panel
-	private PanelAjoutPersonne panelAjoutPersonne;
-	private PanelStock panelStock;
-	private PanelModifStock panelModifStock;
+	public static JPanel panelPrincipal;
+	public static PanelAjoutPersonne panelAjoutPersonne;
+	public static PanelStock panelStock;
+	public static PanelModifStock panelModifStock;
+	public static PanelGraph panelGraph;
 	
 	public Fenetre() {
 		// on instancie les différentes classes
@@ -53,12 +55,14 @@ public class Fenetre extends JFrame implements ActionListener {
 		this.panelAjoutPersonne.boutonAddPersonne.addActionListener(this);
 		this.panelAjoutPersonne.boutonCancelPersonne.addActionListener(this);
 		
-		this.panelStock = new PanelStock();
-		this.panelStock.boutonAdd.addActionListener(this);
-		
 		this.panelModifStock = new PanelModifStock();
 		this.panelModifStock.boutonAdd.addActionListener(this);
 		this.panelModifStock.boutonCancel.addActionListener(this);
+		
+		this.panelStock = new PanelStock();
+		this.panelStock.boutonAdd.addActionListener(this);
+		
+		this.panelGraph = new PanelGraph();
 		
 		//on fixe le titre de la fenêtre
 		this.setTitle("Covid-Statistics");
@@ -66,12 +70,12 @@ public class Fenetre extends JFrame implements ActionListener {
 		int sizeY = 350;
 		int nbPanel = 3;
 		//initialisation de la taille de la fenêtre
-		this.setSize(sizeX*nbPanel,sizeY);
+		this.setSize(sizeX*nbPanel,sizeY*2);
 		
 		//permet de quitter l'application si on ferme la fenêtre
 		this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		
-		JPanel panelPrincipal = new JPanel();
+		panelPrincipal = new JPanel();
 		GridLayout layoutPrincipal = new GridLayout(0,nbPanel);
 		panelPrincipal.setLayout(layoutPrincipal);
 		
@@ -79,6 +83,7 @@ public class Fenetre extends JFrame implements ActionListener {
 		panelPrincipal.add(this.panelAjoutPersonne);
 		panelPrincipal.add(this.panelStock);
 		panelPrincipal.add(this.panelModifStock);
+		panelPrincipal.add(this.panelGraph);
 		
 		this.setContentPane(panelPrincipal);
 
