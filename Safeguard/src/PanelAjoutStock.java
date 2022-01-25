@@ -7,6 +7,8 @@ import javax.swing.JPanel;
 import javax.swing.SwingConstants;
 
 public class PanelAjoutStock extends JPanel {
+
+	private static final long serialVersionUID = -2753194042569740226L;
 	// Boutons
 	public JButton boutonAdd;
 	

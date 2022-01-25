@@ -10,7 +10,8 @@ import java.util.ArrayList;
 
 public class PanelGraph extends JPanel {
 
-    private JLabel labelGraph;
+	private static final long serialVersionUID = -2913866235715235591L;
+	private JLabel labelGraph;
     private int origineY = getHeight()/2+150, origineX = getWidth()/2+20;
     private int stepX = 25;
     private Graphics g;

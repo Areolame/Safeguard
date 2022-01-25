@@ -1,17 +1,12 @@
 import java.awt.GridLayout;
-import java.awt.event.ActionEvent;
-import java.text.SimpleDateFormat;
-import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.LinkedHashMap;
-import java.util.Vector;
 
 import javax.swing.*;
 
-import Stock.TypeStock;
-
 public class PanelStock extends JPanel {
 	
+	private static final long serialVersionUID = 4939220067030058978L;
 	// Liste des valeurs de stocks
 	public static ArrayList<JLabel> labelList = new ArrayList<JLabel>();
 	public static LinkedHashMap<String, JLabel> mapLabel = new LinkedHashMap<String, JLabel>();
@@ -34,8 +29,8 @@ public class PanelStock extends JPanel {
 		
 		// Récupération de l'inventaire dans la BDD
 		
-		for (String key : Fenetre.panelModifStock.mapValeur.keySet()) {
-			String value = Integer.toString(Fenetre.panelModifStock.mapValeur.get(key));
+		for (String key : PanelModifStock.mapValeur.keySet()) {
+			String value = Integer.toString(PanelModifStock.mapValeur.get(key));
 		    JLabel tmpLabel1 = new JLabel(key, SwingConstants.CENTER);
 		    JLabel tmpLabel2 = new JLabel(value, SwingConstants.CENTER);
 		    labelList.add(tmpLabel2);

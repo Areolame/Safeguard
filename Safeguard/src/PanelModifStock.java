@@ -1,7 +1,4 @@
 import java.awt.GridLayout;
-import java.awt.event.ActionEvent;
-import java.text.SimpleDateFormat;
-import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.LinkedHashMap;
 import java.util.Vector;
@@ -11,16 +8,15 @@ import javax.swing.JButton;
 import javax.swing.JFormattedTextField;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
-import javax.swing.JTextField;
 
 import Stock.*;
 import Stock.Enums.*;
 
 import javax.swing.*;
-import Stock.*;
 
 public class PanelModifStock extends JPanel {
-	
+
+	private static final long serialVersionUID = -5929009624829443824L;
 	private ArrayList<JFormattedTextField> fieldList = new ArrayList<JFormattedTextField>();
 	private ArrayList<JComboBox<String>> comboList = new ArrayList<JComboBox<String>>();
 	public static LinkedHashMap<String, Integer> mapValeur = null;
@@ -113,7 +109,7 @@ public class PanelModifStock extends JPanel {
 
 				nombre_total = Fenetre.liaison.ajouterStock(stock);
 				Fenetre.panelGraph.addLog(stock);
-				Fenetre.panelStock.mapLabel.get(nom_objet).setText(String.valueOf(nombre_total));
+				PanelStock.mapLabel.get(nom_objet).setText(String.valueOf(nombre_total));
 			}
 		}
 	}

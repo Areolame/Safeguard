@@ -1,5 +1,4 @@
 import java.awt.GridLayout;
-import java.awt.event.ActionEvent;
 import java.text.SimpleDateFormat;
 import java.time.LocalDateTime;
 
@@ -7,6 +6,7 @@ import javax.swing.*;
 
 public class PanelAjoutPersonne extends JPanel {
 	
+	private static final long serialVersionUID = -3705840128138863208L;
 	// Label et champs de textes
 	private JLabel labelPrenom;
 	public JTextField textFieldPrenom;
