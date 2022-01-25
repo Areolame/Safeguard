@@ -33,10 +33,11 @@ public class PanelStock extends JPanel {
 		
 		// Récupération de l'inventaire dans la BDD
 		HashMap<String, Integer> map = null;
-		for (int i=0; i<3; i++) {
+		for (int i=0; i<4; i++) {
 			if (i==0) map = Fenetre.liaison.getStockGel();
 			else if (i==1) map = Fenetre.liaison.getStockMasque();
 			else if (i==2) map = Fenetre.liaison.getStockVaccin();
+			else if (i==3) map = Fenetre.liaison.getStockTest();
 			for (String key : map.keySet()) {
 			    String value = Integer.toString(map.get(key));
 			    JLabel tmpLabel1 = new JLabel(key, SwingConstants.CENTER);

@@ -78,6 +78,29 @@ public class LiaisonBDD {
 		try
 		{
 			con = DriverManager.getConnection(URL, LOGIN, PASS);
+			ps = con.prepareStatement("Select nom_vaccin, stock_vaccin From Vaccin");
+			ResultSet rs=ps.executeQuery();
+			while(rs.next())
+			{
+				stocks.put(rs.getString("nom_vaccin"), rs.getInt("stock_vaccin"));
+			}
+		}
+		catch (Exception ee) {
+			ee.printStackTrace();
+		}
+		try {if (ps != null)ps.close();} catch (Exception t) {}
+		try {if (con != null)con.close();} catch (Exception t) {}
+		return stocks;
+	}
+
+	public HashMap<String, Integer> getStockTest()
+	{
+		HashMap<String, Integer> stocks = new HashMap<>();
+		Connection con = null;
+		PreparedStatement ps = null;
+		try
+		{
+			con = DriverManager.getConnection(URL, LOGIN, PASS);
 			ps = con.prepareStatement("Select nom_test, stock_test From Test");
 			ResultSet rs=ps.executeQuery();
 			while(rs.next())
@@ -92,7 +115,7 @@ public class LiaisonBDD {
 		try {if (con != null)con.close();} catch (Exception t) {}
 		return stocks;
 	}
-
+	
 	public int ajouterStock(Stock stock) 
 	{
 		if(stock.isGel())
@@ -106,6 +129,10 @@ public class LiaisonBDD {
 		else if(stock.isVaccin())
 		{
 			return ajouterVaccin(stock);
+		}
+		else if (stock.isTest())
+		{
+			return ajouterTest(stock);
 		}
 		return -1;
 	}
@@ -137,6 +164,32 @@ public class LiaisonBDD {
 	}
 
 	public int getVaccin(Stock stock)
+	{
+		Connection con = null;
+		PreparedStatement ps = null;
+		try
+		{
+			con = DriverManager.getConnection(URL, LOGIN, PASS);
+			ps = con.prepareStatement("Select stock_vaccin, nom_vaccin From Vaccin");
+			ResultSet rs=ps.executeQuery();
+			rs.next();
+			String tmp = rs.getString("nom_vaccin");
+			while(!tmp.equalsIgnoreCase(stock.getName())) {
+				rs.next();
+				tmp = rs.getString("nom_vaccin");
+			}
+			return rs.getInt("stock_vaccin");
+		}
+		catch (Exception ee) {
+			ee.printStackTrace();
+		}
+		try {if (ps != null)ps.close();} catch (Exception t) {}
+		try {if (con != null)con.close();} catch (Exception t) {}
+
+		return 0;
+	}
+	
+	public int getTest(Stock stock)
 	{
 		Connection con = null;
 		PreparedStatement ps = null;
@@ -257,7 +310,7 @@ public class LiaisonBDD {
 		try {
 			//tentative de connexion
 			con = DriverManager.getConnection(URL, LOGIN, PASS);
-			ps = con.prepareStatement("UPDATE Test SET stock_test = ?, date_reception = ? where nom_test = ?");
+			ps = con.prepareStatement("UPDATE Vaccin SET stock_vaccin = ?, date_reception = ? where nom_vaccin = ?");
 			ps.setInt(1, getVaccin(stock) + stock.getNombreDeStock());
 			ps.setDate(2, java.sql.Date.valueOf(LocalDateTime.now().toLocalDate()));
 			ps.setString(3, stock.getName());
@@ -276,6 +329,34 @@ public class LiaisonBDD {
 		return retour;
 	}
 
+	public int ajouterTest(Stock stock)
+	{
+		Connection con = null;
+		PreparedStatement ps = null;
+		int retour=0;
+		//connexion � la base de donn�es
+		try {
+			//tentative de connexion
+			con = DriverManager.getConnection(URL, LOGIN, PASS);
+			ps = con.prepareStatement("UPDATE Test SET stock_test = ?, date_reception = ? where nom_test = ?");
+			ps.setInt(1, getTest(stock) + stock.getNombreDeStock());
+			ps.setDate(2, java.sql.Date.valueOf(LocalDateTime.now().toLocalDate()));
+			ps.setString(3, stock.getName());
+
+			//Ex�cution de la requ�te
+			retour=ps.executeUpdate();
+
+
+		}
+		catch (Exception ee) {
+			ee.printStackTrace();
+		}
+		try {if (ps != null)ps.close();} catch (Exception t) {}
+		try {if (con != null)con.close();} catch (Exception t) {}
+
+		return retour;
+	}
+	
 	public int ajouterPersonne(Personne p)
 	{
 		Connection con = null;
