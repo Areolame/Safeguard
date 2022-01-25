@@ -44,7 +44,7 @@ public class PanelModifStock extends JPanel {
 		
 		// Récupération de l'inventaire dans la BDD
 		HashMap<String, Integer> map = null;
-		for (int i=0; i<3; i++) {
+		for (int i=0; i<4; i++) {
 			String type = "";
 			if (i==0) { 
 				map = Fenetre.liaison.getStockGel();
@@ -57,6 +57,10 @@ public class PanelModifStock extends JPanel {
 			else if (i==2) {
 				map = Fenetre.liaison.getStockVaccin();
 				type = "Vaccin";
+			}
+			else if (i==3) {
+				map = Fenetre.liaison.getStockTest();
+				type = "Test";
 			}
 			Vector<String> liste = new Vector<String>();
 			for (String key : map.keySet()) {
@@ -97,6 +101,7 @@ public class PanelModifStock extends JPanel {
 				if (i == 0) Fenetre.liaison.ajouterGel(new StockGel(EnumGel.from((String)comboList.get(i).getSelectedItem()), Integer.parseInt(str1)));
 				if (i == 1) Fenetre.liaison.ajouterMasque(new StockMasque(EnumMasque.from((String)comboList.get(i).getSelectedItem()), Integer.parseInt(str1)));
 				if (i == 2) Fenetre.liaison.ajouterVaccin(new StockVaccin(EnumVaccin.from((String)comboList.get(i).getSelectedItem()), Integer.parseInt(str1)));
+				if (i == 3) Fenetre.liaison.ajouterTest(new StockTest(EnumTest.from((String)comboList.get(i).getSelectedItem()), Integer.parseInt(str1)));
 			}
 		}
 	}
