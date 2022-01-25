@@ -18,6 +18,7 @@ import Stock.Enums.*;
 
 import javax.swing.*;
 import Stock.*;
+import javafx.scene.layout.Pane;
 
 public class PanelModifStock extends JPanel {
 	
@@ -94,17 +95,34 @@ public class PanelModifStock extends JPanel {
 				String nom_objet = (String)comboList.get(i).getSelectedItem();
 				Integer nombre_stock = Integer.parseInt(str1);
 				Integer nombre_total = null;
-				if (i == 0) nombre_total = Fenetre.liaison.ajouterGel(new StockGel(EnumGel.from(nom_objet), nombre_stock));
-				if (i == 1) nombre_total = Fenetre.liaison.ajouterMasque(new StockMasque(EnumMasque.from(nom_objet), nombre_stock));
-				if (i == 2) nombre_total = Fenetre.liaison.ajouterVaccin(new StockVaccin(EnumVaccin.from(nom_objet), nombre_stock));
-				if (i == 3) nombre_total = Fenetre.liaison.ajouterTest(new StockTest(EnumTest.from(nom_objet), nombre_stock));
+				Stock stock = null;
+				if (i == 0)
+				{
+					stock = new StockGel(EnumGel.from(nom_objet), nombre_stock);
+				}
+				if (i == 1)
+				{
+					stock = new StockMasque(EnumMasque.from(nom_objet), nombre_stock);
+				}
+				if (i == 2){
+					stock = new StockVaccin(EnumVaccin.from(nom_objet), nombre_stock);
+				}
+				if (i == 3)
+				{
+					stock = new StockTest(EnumTest.from(nom_objet), nombre_stock);
+				}
+
+				nombre_total = Fenetre.liaison.ajouterStock(stock);
+				Fenetre.panelGraph.addLog(stock);
 				Fenetre.panelStock.mapLabel.get(nom_objet).setText(String.valueOf(nombre_total));
 			}
 		}
 	}
 	
 	public void cancel() {
-		
+		for (int i=0; i < fieldList.size(); i++) {
+			fieldList.get(i).setText("");
+		}
 	}
 	
 }
