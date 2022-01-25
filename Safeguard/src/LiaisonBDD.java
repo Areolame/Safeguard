@@ -481,6 +481,29 @@ public class LiaisonBDD {
 		return retour;
 	}
 	
+	public ArrayList<Personne> getPersonne()
+	{
+		ArrayList<Personne> personne = new ArrayList<>();
+		Connection con = null;
+		PreparedStatement ps = null;
+		try
+		{
+			con = DriverManager.getConnection(URL, LOGIN, PASS);
+			ps = con.prepareStatement("Select * From Personne");
+			ResultSet rs=ps.executeQuery();
+			while(rs.next())
+			{
+				personne.add(new Personne(rs.getString("nom"), rs.getString("prenom"), rs.getTimestamp("naissance").toLocalDateTime()));
+			}
+		}
+		catch (Exception ee) {
+			ee.printStackTrace();
+		}
+		try {if (ps != null)ps.close();} catch (Exception t) {}
+		try {if (con != null)con.close();} catch (Exception t) {}
+		return personne;
+	}
+	
 	public Boolean checkExist(String nom_table, String nom_objet) {
 		Connection con = null;
 		PreparedStatement ps = null;

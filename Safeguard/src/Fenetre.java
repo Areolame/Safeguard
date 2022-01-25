@@ -26,6 +26,7 @@ public class Fenetre extends JFrame implements ActionListener {
 	public static PanelGraph panelGraph;
 	public static PanelUHA panelUHA;
 	public static PanelAjoutStock panelAjoutStock;
+	public static PanelPersonne panelPersonne;
 	
 	public static JDialog dialogAjoutStock;
 	
@@ -58,6 +59,8 @@ public class Fenetre extends JFrame implements ActionListener {
 		panelAjoutStock = new PanelAjoutStock();
 		panelAjoutStock.boutonAdd.addActionListener(this);
 		dialogAjoutStock.add(panelAjoutStock);
+		
+		panelPersonne = new PanelPersonne();
 
 		//on fixe le titre de la fenêtre
 		this.setTitle("Covid-Statistics");
@@ -80,6 +83,7 @@ public class Fenetre extends JFrame implements ActionListener {
 		panelPrincipal.add(panelModifStock);
 		panelPrincipal.add(panelGraph);
 		panelPrincipal.add(panelUHA);
+		panelPrincipal.add(panelPersonne);
 		
 		this.setContentPane(panelPrincipal);
 

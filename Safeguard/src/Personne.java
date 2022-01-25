@@ -46,7 +46,6 @@ public class Personne {
         this.nom = nom;
         this.prenom = prenom;
         this.dateDeNaissance = dateDeNaissance;
-        Fenetre.liaison.ajouterPersonne(this);
         PersonneManager.personnes.add(this);
     }
 

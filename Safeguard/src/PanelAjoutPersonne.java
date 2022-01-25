@@ -94,7 +94,9 @@ public class PanelAjoutPersonne extends JPanel {
 		}
 		else {
 			LocalDateTime dateNaiss = LocalDateTime.of(Integer.parseInt(annee),Integer.parseInt(mois),Integer.parseInt(jour), 0, 0);
-			new Personne(this.textFieldPrenom.getText(), this.textFieldNom.getText(), dateNaiss);
+			Personne p = new Personne(this.textFieldPrenom.getText(), this.textFieldNom.getText(), dateNaiss);
+			Fenetre.liaison.ajouterPersonne(p);
+			Fenetre.panelPersonne.nouvelleLigne(p.getNom(),p.getPrenom(),p.getDate());
 		}
 	}
 	
