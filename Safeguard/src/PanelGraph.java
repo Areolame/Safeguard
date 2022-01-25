@@ -1,5 +1,6 @@
 import Stock.Enums.EnumMasque;
 import Stock.Enums.EnumVaccin;
+import Stock.Stock;
 import Stock.StockGel;
 import Stock.StockMasque;
 import Stock.StockVaccin;
@@ -14,6 +15,7 @@ public class PanelGraph extends JPanel {
     private JLabel labelGraph;
     private int origineY = getHeight()/2+150, origineX = getWidth()/2+20;
     private int stepX = 25;
+    private Graphics g;
 
     public static ArrayList<StockMasque> LogMasque = new ArrayList<>();
     public static ArrayList<StockVaccin> LogVaccin = new ArrayList<>();
@@ -23,7 +25,7 @@ public class PanelGraph extends JPanel {
     protected void paintComponent(Graphics g)
     {
         super.paintComponent(g);
-
+        this.g = g;
         paintMasque(g);
         paintVaccin(g);
         paintGel(g);
@@ -72,6 +74,25 @@ public class PanelGraph extends JPanel {
         g.drawString("Numéro d'ajout", origineX+280, origineY);
         g.drawLine(origineX, origineY, origineX+275, origineY);
         g.drawLine(origineX, origineY, origineX, origineY-500);
+    }
+
+    public void addLog(Stock stock)
+    {
+        if(stock.isVaccin())
+        {
+          LogVaccin.add((StockVaccin) stock);
+          paintVaccin(g);
+        }
+        else if(stock.isGel())
+        {
+            LogGel.add((StockGel) stock);
+            paintGel(g);
+        }
+        else if(stock.isMasque())
+        {
+            LogMasque.add((StockMasque) stock);
+            paintMasque(g);
+        }
     }
 
     public PanelGraph() {
